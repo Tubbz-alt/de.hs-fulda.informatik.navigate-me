@@ -205,7 +205,7 @@ class CAEngine: RESTServiceDelegate {
         
         var gebRaums = [Substring](), mappedIndices = [Int](), beginn: Date? = nil, ende: Date? = nil, raumFromS2T: String? = nil, isScheduleAppended = false
     
-//        print("\nData: \(s2TGebPlans.count)\n")
+        print("\nData: \(s2TGebPlans.count)\n")
         
         for gebPlan in s2TGebPlans {
             

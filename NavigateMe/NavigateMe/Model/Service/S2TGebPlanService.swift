@@ -40,7 +40,7 @@ class S2TGebPlanService: RESTService {
             
         } catch let jsonError {
             
-            print("JSON Error:\(jsonError)")
+            print("JSON Error [S2TGebPlanService.swift]: \(jsonError)")
         }
     }
     
@@ -60,7 +60,6 @@ class S2TGebPlanService: RESTService {
         
         let requestUrl = "/hfg/rest/st/getGebPlan/" + gebs.joined(separator: ",") + "/"
         let url = self.generateURL(using: requestUrl, query: query)
-        
         self.processGET(for: url)
     }
     

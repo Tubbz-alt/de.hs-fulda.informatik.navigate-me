@@ -40,7 +40,7 @@ class GoogleDistanceService: RESTService {
             
         } catch let jsonError {
             
-            print("JSON Error:\(jsonError)")
+            print("JSON Error [GoogleDistanceService.swift]: \(jsonError)")
         }
     }
     

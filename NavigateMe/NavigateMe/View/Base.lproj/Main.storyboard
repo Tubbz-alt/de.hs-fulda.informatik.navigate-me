@@ -132,7 +132,7 @@
         <!--Navigate Me-->
         <scene sceneID="oEx-ha-6ps">
             <objects>
-                <navigationController title="Navigate Me" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" toolbarHidden="NO" id="i8j-SZ-4UE" sceneMemberID="viewController">
+                <navigationController title="Navigate Me" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" id="i8j-SZ-4UE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZwS-BE-04x">
                         <rect key="frame" x="0.0" y="20" width="768" height="44"/>
@@ -140,7 +140,6 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hcj-5r-Yps">
-                        <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </toolbar>
                     <connections>

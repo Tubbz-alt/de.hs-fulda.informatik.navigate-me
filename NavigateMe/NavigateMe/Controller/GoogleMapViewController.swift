@@ -14,31 +14,27 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 
     let navigation = NEngine()
     
-    let floors = ["Floor: 0" : 0, "Floor: 1" : 1, "Floor: 3" : 3]
-    
-//    Hello Mahbub 46(E).0.9: 265
-//    Hello Mahbub 46(E).0.12: 268
-//    Hello Mahbub 46(E).0.29: 285
-//    Hello Mahbub 46(E).0.32: 288
-//    Hello Mahbub 46(E).0.35: 291
-//    Hello Mahbub 46(E).0.36: 292
-//    Hello Mahbub 46(E).1.9: 266
-//    Hello Mahbub 46(E).1.105: 362
-//    Hello Mahbub 46(E).1.107: 364
-//    Hello Mahbub 46(E).1.112: 369
-//    Hello Mahbub 46(E).1.121: 378
-//    Hello Mahbub 46(E).1.129: 386
-//    Hello Mahbub 46(E).1.131: 388
-//    Hello Mahbub 46(E).1.133: 390
-//    Hello Mahbub 46(E).1.139: 396
-//    Hello Mahbub 46(E).3.332: 591
-//    Hello Mahbub 46(E).3.334: 593
-//    Hello Mahbub 46(E).3.336: 595
-    let raumCoordinates = [265 : CLLocationCoordinate2D(latitude: 50.5653114, longitude: 9.6852465), 268 : CLLocationCoordinate2D(latitude: 50.5651579, longitude: 9.6855355), 291 : CLLocationCoordinate2D(latitude: 50.5650060, longitude: 9.6857260)]
+    let floorStringValues = ["Floor: 0", "Floor: 1", "Floor: 3"]
+    let floorIntValues = [0, 1, 3]
+
+    let raumCoordinates = [265 : CLLocationCoordinate2D(latitude: 50.565298849995976, longitude: 9.6852341294288635), 268 : CLLocationCoordinate2D(latitude: 50.565215579880096, longitude: 9.6854306012392044),
+                           285 : CLLocationCoordinate2D(latitude: 50.56502092742393, longitude: 9.68596201390028), 288 : CLLocationCoordinate2D(latitude: 50.564916359962844, longitude: 9.6858654543757439),
+                           291 : CLLocationCoordinate2D(latitude: 50.564991324846488, longitude: 9.6857001632452011), 292 : CLLocationCoordinate2D(latitude: 50.565034344413327, longitude: 9.6857383847236633),
+                           266 : CLLocationCoordinate2D(latitude: 50.565298849995976, longitude: 9.6852341294288635), 362 : CLLocationCoordinate2D(latitude: 50.565114633301896, longitude: 9.6853353828191757),
+                           364 : CLLocationCoordinate2D(latitude: 50.565175542022637, longitude: 9.6851184591650963), 369 : CLLocationCoordinate2D(latitude: 50.565220052191847, longitude: 9.6854326128959656),
+                           378 : CLLocationCoordinate2D(latitude: 50.565155097146139, longitude: 9.6856230497360229), 386 : CLLocationCoordinate2D(latitude: 50.565025612722266, longitude: 9.6859667077660561),
+                           388 : CLLocationCoordinate2D(latitude: 50.564925943548381, longitude: 9.6858768537640572), 390 : CLLocationCoordinate2D(latitude: 50.564996223115983, longitude: 9.6857068687677383),
+                           396 : CLLocationCoordinate2D(latitude: 50.565055641214094, longitude: 9.6855281665921211), 591 : CLLocationCoordinate2D(latitude: 50.565154671211111, longitude: 9.6851573511958122),
+                           593 : CLLocationCoordinate2D(latitude: 50.565230487584301, longitude: 9.6851164475083351), 595 : CLLocationCoordinate2D(latitude: 50.565317378109164, longitude: 9.6852515637874603)]
     
     let universityCampusArea = CLLocationCoordinate2D(latitude: 50.5650077, longitude: 9.6853589)
     let centerCoordinateGeb46E = CLLocationCoordinate2D(latitude: 50.5650899, longitude: 9.6855439)
-    let destinationCoordinates = [CLLocationCoordinate2D(latitude: 50.5639708, longitude: 9.6852563), CLLocationCoordinate2D(latitude: 50.5642087, longitude: 9.6845391), CLLocationCoordinate2D(latitude: 50.5657863, longitude: 9.6842786), CLLocationCoordinate2D(latitude: 50.5650569, longitude: 9.6861940)]
+    
+    let sas = [CLLocationCoordinate2D : [Int]]() //, 2 : [2], 3 : [3]]
+    
+    let destinationCoordinates = [CLLocationCoordinate2D(latitude: 50.5639708, longitude: 9.6852563), CLLocationCoordinate2D(latitude: 50.5642087, longitude: 9.6845391),
+                                  CLLocationCoordinate2D(latitude: 50.5657863, longitude: 9.6842786), CLLocationCoordinate2D(latitude: 50.565071400840459, longitude: 9.6862181648612022)]
+    
     let locationManager = CLLocationManager()
     
     var geb: String? = nil
@@ -46,6 +42,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     var raum: Int? = nil
     var duration: String? = nil
     var googleDirection: GoogleDirection? = nil
+    var raumMarker: GMSMarker? = nil
     
     override func viewDidLoad() {
         
@@ -54,6 +51,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 20) // 18
         
         let mapView = GMSMapView.map(withFrame: .zero, camera: cameraPostion)
+        mapView.delegate = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
@@ -62,23 +60,15 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         groundOverlay.bearing = 30
         groundOverlay.map = mapView
         
-//        let raumIntValue = self.geb!.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) }) + self.floor! + self.raum!
-//        let raumMarker = GMSMarker(position: self.raumCoordinates[265]!)
-//        raumMarker.title = "Free for next \(self.duration!)"
-//        raumMarker.map = mapView
-        
-//        let raumMarker2 = GMSMarker(position: self.raumCoordinates[268]!)
-//        raumMarker2.title = "Free for next \(self.duration!)"
-//        raumMarker2.map = mapView
-        
-//        let raumMarker3 = GMSMarker(position: self.raumCoordinates[291]!)
-//        raumMarker3.title = "Free for next \(self.duration!)"
-//        raumMarker3.map = mapView
+        let raumIntValue = self.geb!.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) }) + self.floor! + self.raum!
+        self.raumMarker = GMSMarker(position: self.raumCoordinates[raumIntValue]!)
+        self.raumMarker!.title = "Free for next \(self.duration!)"
+        self.raumMarker!.map = mapView
         
         self.view = mapView
         
-        let floorSwitcher = UISegmentedControl(items: floors.keys.sorted())
-        floorSwitcher.selectedSegmentIndex = self.floor!
+        let floorSwitcher = UISegmentedControl(items: self.floorStringValues)
+        floorSwitcher.selectedSegmentIndex = self.floorIntValues.index(where: { $0 == self.floor! })!
         floorSwitcher.autoresizingMask = .flexibleWidth
         floorSwitcher.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
         floorSwitcher.addTarget(self, action: #selector(GoogleMapViewController.drawFloorPlanOnMap(_:)), for: .valueChanged)
@@ -97,12 +87,14 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     @IBAction func drawFloorPlanOnMap(_ sender: UISegmentedControl) {
         
         let mapView = self.view as! GMSMapView
-        let currentFloor = self.floors[sender.titleForSegment(at: sender.selectedSegmentIndex)!]!
+        let currentFloor = self.floorIntValues[sender.selectedSegmentIndex]
         
         let groundOverlay = GMSGroundOverlay(position: self.centerCoordinateGeb46E, icon: UIImage(named: "E\(currentFloor).png"), zoomLevel: CGFloat(19.7))
         groundOverlay.bearing = 30
-        groundOverlay.zIndex = 0
+        groundOverlay.zIndex = currentFloor == self.floor! ? 0 : 1
         groundOverlay.map = mapView
+        
+        self.raumMarker?.map = currentFloor == self.floor! ? mapView : nil
         
         mapView.animate(toLocation: self.centerCoordinateGeb46E)
     }
@@ -120,6 +112,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         print("\nTap At: \(coordinate)\n")
+        let tapMarker = GMSMarker(position: coordinate)
+        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
+        tapMarker.map = mapView
     }
     
     func processDidComplete(then dto: Any) {
@@ -136,15 +131,14 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                 path.add(CLLocationCoordinate2D(latitude: step.end_location.lat, longitude: step.end_location.lng))
             }
             
-            // inside university path
-//            path.add(CLLocationCoordinate2D(latitude: 50.5649485, longitude: 9.6859888))
-            path.add(CLLocationCoordinate2D(latitude: 50.5648966, longitude: 9.6860720))
+            // steps inside university
+            path.add(CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996))
             path.add(CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788))
             
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 5
             polyline.strokeColor = UIColor.purple
-            polyline.zIndex = 100
+            polyline.zIndex = 1
             polyline.map = self.view as! GMSMapView
         }
     }

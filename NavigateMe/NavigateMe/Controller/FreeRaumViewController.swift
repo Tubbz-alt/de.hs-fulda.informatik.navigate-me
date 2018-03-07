@@ -42,7 +42,15 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
-        app.searchFreeRaums()
+//        app.searchFreeRaums()
+        
+        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
+        googleMapViewController.geb = "46(E)"
+        googleMapViewController.floor = 3
+        googleMapViewController.raum = 336
+        googleMapViewController.duration = "03:35"
+        
+        self.navigationController!.pushViewController(googleMapViewController, animated: true)
     }
     
     @IBAction func navigateMeInThisRaum(_ sender: UIButton) {
@@ -187,7 +195,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     func startImageProcessor() {
         
 //        print("After View Loading ...\n")
-//        print("Start Image Processor ...\n")
+        print("Start Image Processor Engine ...\n")
         
         let widthDiffBetweenCollectionViewAndCell = CGFloat(45)
         let widthDiffBetweenCellAndImageFrame = CGFloat(40)
