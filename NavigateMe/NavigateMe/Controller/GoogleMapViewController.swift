@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 
-class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, EngineDelegate {
+class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, EngineDelegate {
 
     let navigation = NEngine()
     
@@ -34,10 +34,11 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, Engi
 //    Hello Mahbub 46(E).3.332: 591
 //    Hello Mahbub 46(E).3.334: 593
 //    Hello Mahbub 46(E).3.336: 595
-    let raumCoordinates = [265 : CLLocationCoordinate2D(latitude: 50.5653219, longitude: 9.6852418), 268 : CLLocationCoordinate2D(latitude: 50.5651926, longitude: 9.6854397), 291 : CLLocationCoordinate2D(latitude: 50.5650060, longitude: 9.6857260)]
+    let raumCoordinates = [265 : CLLocationCoordinate2D(latitude: 50.5653114, longitude: 9.6852465), 268 : CLLocationCoordinate2D(latitude: 50.5651579, longitude: 9.6855355), 291 : CLLocationCoordinate2D(latitude: 50.5650060, longitude: 9.6857260)]
     
     let universityCampusArea = CLLocationCoordinate2D(latitude: 50.5650077, longitude: 9.6853589)
     let centerCoordinateGeb46E = CLLocationCoordinate2D(latitude: 50.5650899, longitude: 9.6855439)
+    let destinationCoordinates = [CLLocationCoordinate2D(latitude: 50.5639708, longitude: 9.6852563), CLLocationCoordinate2D(latitude: 50.5642087, longitude: 9.6845391), CLLocationCoordinate2D(latitude: 50.5657863, longitude: 9.6842786), CLLocationCoordinate2D(latitude: 50.5650569, longitude: 9.6861940)]
     let locationManager = CLLocationManager()
     
     var geb: String? = nil
@@ -62,17 +63,17 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, Engi
         groundOverlay.map = mapView
         
 //        let raumIntValue = self.geb!.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) }) + self.floor! + self.raum!
-        let raumMarker = GMSMarker(position: self.raumCoordinates[265]!)
-        raumMarker.title = "Free for next \(self.duration!)"
-        raumMarker.map = mapView
+//        let raumMarker = GMSMarker(position: self.raumCoordinates[265]!)
+//        raumMarker.title = "Free for next \(self.duration!)"
+//        raumMarker.map = mapView
         
-        let raumMarker2 = GMSMarker(position: self.raumCoordinates[268]!)
-        raumMarker2.title = "Free for next \(self.duration!)"
-        raumMarker2.map = mapView
+//        let raumMarker2 = GMSMarker(position: self.raumCoordinates[268]!)
+//        raumMarker2.title = "Free for next \(self.duration!)"
+//        raumMarker2.map = mapView
         
-        let raumMarker3 = GMSMarker(position: self.raumCoordinates[291]!)
-        raumMarker3.title = "Free for next \(self.duration!)"
-        raumMarker3.map = mapView
+//        let raumMarker3 = GMSMarker(position: self.raumCoordinates[291]!)
+//        raumMarker3.title = "Free for next \(self.duration!)"
+//        raumMarker3.map = mapView
         
         self.view = mapView
         
@@ -113,8 +114,12 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, Engi
         (self.view as! GMSMapView).animate(toLocation: currentLocation.coordinate)
         
         let origin = currentLocation.coordinate
-        let destination = CLLocationCoordinate2D(latitude: 50.5639708, longitude: 9.6852563)
-        self.navigation.getDirectionFromGoogleMapAPI(origin: origin, destination: destination)
+        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.destinationCoordinates)
+    }
+
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        
+        print("\nTap At: \(coordinate)\n")
     }
     
     func processDidComplete(then dto: Any) {
