@@ -30,10 +30,10 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     let universityCampusArea = CLLocationCoordinate2D(latitude: 50.5650077, longitude: 9.6853589)
     let centerCoordinateGeb46E = CLLocationCoordinate2D(latitude: 50.5650899, longitude: 9.6855439)
     
-    let sas = [CLLocationCoordinate2D : [Int]]() //, 2 : [2], 3 : [3]]
+    let stepsInsideUniversity = [CLLocationCoordinate2D(latitude: 50.563954500000001, longitude: 9.6852432000000004) : [CLLocationCoordinate2D(latitude: 50.564386278163909, longitude: 9.6856210380792618)], CLLocationCoordinate2D(latitude: 50.564197700000001, longitude: 9.6845296999999988) : [CLLocationCoordinate2D(latitude: 50.564402676926854, longitude: 9.684707410633564), CLLocationCoordinate2D(latitude: 50.564451873181468, longitude: 9.6849659085273743), CLLocationCoordinate2D(latitude: 50.564930841824669, longitude: 9.6854161843657494), CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977)],
+                                  CLLocationCoordinate2D(latitude: 50.565794099999998, longitude: 9.6842638000000001) : [CLLocationCoordinate2D(latitude: 50.565713068718303, longitude: 9.6844733878970146), CLLocationCoordinate2D(latitude: 50.565364443743256, longitude: 9.6854192018508911), CLLocationCoordinate2D(latitude: 50.565274571767681, longitude: 9.6853400766849518)], CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004) : [CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996), CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788)]]
     
-    let destinationCoordinates = [CLLocationCoordinate2D(latitude: 50.5639708, longitude: 9.6852563), CLLocationCoordinate2D(latitude: 50.5642087, longitude: 9.6845391),
-                                  CLLocationCoordinate2D(latitude: 50.5657863, longitude: 9.6842786), CLLocationCoordinate2D(latitude: 50.565071400840459, longitude: 9.6862181648612022)]
+    let subStepsInsideUniversity = [CLLocationCoordinate2D(latitude: 50.563954500000001, longitude: 9.6852432000000004) : [1 : [CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977), CLLocationCoordinate2D(latitude: 50.564930841824669, longitude: 9.6854161843657494), CLLocationCoordinate2D(latitude: 50.564386278163909, longitude: 9.6856210380792618)], 2 : [CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788), CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996), CLLocationCoordinate2D(latitude: 50.564386278163909, longitude: 9.6856210380792618)]]]
     
     let locationManager = CLLocationManager()
     
@@ -60,7 +60,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         groundOverlay.bearing = 30
         groundOverlay.map = mapView
         
-        let raumIntValue = self.geb!.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) }) + self.floor! + self.raum!
+        let raumIntValue = self.geb!.sumOfAsciiValues() + self.floor! + self.raum!
         self.raumMarker = GMSMarker(position: self.raumCoordinates[raumIntValue]!)
         self.raumMarker!.title = "Free for next \(self.duration!)"
         self.raumMarker!.map = mapView
@@ -91,7 +91,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         let groundOverlay = GMSGroundOverlay(position: self.centerCoordinateGeb46E, icon: UIImage(named: "E\(currentFloor).png"), zoomLevel: CGFloat(19.7))
         groundOverlay.bearing = 30
-        groundOverlay.zIndex = currentFloor == self.floor! ? 0 : 1
+        groundOverlay.zIndex = /*currentFloor == self.floor! ?*/ 0 //: 1
         groundOverlay.map = mapView
         
         self.raumMarker?.map = currentFloor == self.floor! ? mapView : nil
@@ -106,7 +106,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         (self.view as! GMSMapView).animate(toLocation: currentLocation.coordinate)
         
         let origin = currentLocation.coordinate
-        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.destinationCoordinates)
+        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
     }
 
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -115,6 +115,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         let tapMarker = GMSMarker(position: coordinate)
         tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
         tapMarker.map = mapView
+        
+        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
     }
     
     func processDidComplete(then dto: Any) {
@@ -123,6 +125,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         DispatchQueue.main.async {
             
+            let mapView = self.view as! GMSMapView
             let path = GMSMutablePath()
             
             steps.forEach { step in
@@ -131,15 +134,33 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                 path.add(CLLocationCoordinate2D(latitude: step.end_location.lat, longitude: step.end_location.lng))
             }
             
+            let lastStep = steps.last!
+            let destination = CLLocationCoordinate2D(latitude: lastStep.end_location.lat, longitude: lastStep.end_location.lng)
+            
             // steps inside university
-            path.add(CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996))
-            path.add(CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788))
+            self.stepsInsideUniversity[destination]!.forEach { step in path.add(step) }
             
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 5
             polyline.strokeColor = UIColor.purple
             polyline.zIndex = 1
-            polyline.map = self.view as! GMSMapView
+            polyline.map = mapView
+            
+            // sub steps inside university
+            if let subSteps = self.subStepsInsideUniversity[destination] {
+                
+                for subStep in subSteps {
+                    
+                    let subPath = GMSMutablePath()
+                    subStep.value.forEach { step in subPath.add(step) }
+                    
+                    let subPolyline = GMSPolyline(path: subPath)
+                    subPolyline.strokeWidth = 5
+                    subPolyline.strokeColor = subStep.key == 1 ? UIColor.purple : UIColor.gray
+                    subPolyline.zIndex = 1
+                    subPolyline.map = mapView
+                }
+            }
         }
     }
     

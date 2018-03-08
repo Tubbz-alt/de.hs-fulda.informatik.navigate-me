@@ -56,9 +56,7 @@ class NEngine: RESTServiceDelegate {
             return
         }
         
-        print("\nCreating GMS Path ...\n")
         let steps = direction.routes.flatMap({ $0.legs.flatMap({ $0.steps }) })
-        print("\nSteps: \(steps)\n")
         
         guard !steps.isEmpty else {
             

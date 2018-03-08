@@ -60,7 +60,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         for geb in self.freeRaums {
             
-            let gebNummerMitLetter = geb.key.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) })
+            let gebNummerMitLetter = geb.key.sumOfAsciiValues()
             let floor = geb.value.filter({ floorTag  == (gebNummerMitLetter + $0.key) })
             
             guard !floor.isEmpty else {
@@ -97,7 +97,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         let geb = "46(E)"
-        let gebNummerMitLetter = geb.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) })
+        let gebNummerMitLetter = geb.sumOfAsciiValues()
         
         for (index, floor) in floors.keys.enumerated() {
 
