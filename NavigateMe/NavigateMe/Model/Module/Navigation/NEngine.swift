@@ -111,4 +111,9 @@ class NEngine: RESTServiceDelegate {
         }
     }
     
+    func dataDidFail(reason message: String) {
+        
+        self.delegate?.processDidAbort(reason: message)
+    }
+    
 }

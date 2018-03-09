@@ -22,9 +22,10 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         265 : (
             CLLocationCoordinate2D(latitude: 50.565298849995976, longitude: 9.6852341294288635), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.6855375543236732),
-                    CLLocationCoordinate2D(latitude: 50.565089290139646, longitude: 9.6854748576879501),
-                    CLLocationCoordinate2D(latitude: 50.565108031302948, longitude: 9.6854902803897858),
+                    CLLocationCoordinate2D(latitude: 50.565081410330102, longitude: 9.6855570003390312),
+//                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.6855375543236732),
+//                    CLLocationCoordinate2D(latitude: 50.565089290139646, longitude: 9.6854748576879501),
+//                    CLLocationCoordinate2D(latitude: 50.565108031302948, longitude: 9.6854902803897858),
                     CLLocationCoordinate2D(latitude: 50.565201098105803, longitude: 9.6852562576532364)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
@@ -32,7 +33,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                     CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
                     CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
                     CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
-                    CLLocationCoordinate2D(latitude: 50.565108031302948, longitude: 9.6854902803897858),
+//                    CLLocationCoordinate2D(latitude: 50.565108031302948, longitude: 9.6854902803897858),
                     CLLocationCoordinate2D(latitude: 50.565201098105803, longitude: 9.6852562576532364)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
@@ -280,7 +281,14 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             CLLocationCoordinate2D(latitude: 50.565364443743256, longitude: 9.6854192018508911),
             CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) // gebaude 46(E) entrance 3
         ],
-        CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004) : [
+        CLLocationCoordinate2D(latitude: 50.564532999999997, longitude: 9.6879981999999991) : [
+            CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
+            CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
+            CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
+            CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
+            CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
+            CLLocationCoordinate2D(latitude: 50.564958314756161, longitude: 9.686516560614109),
+            CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
             CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
             CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) // gebaude 46(E) entrance 2
         ]
@@ -309,6 +317,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     var duration: String? = nil
     var googleDirection: GoogleDirection? = nil
     var raumMarker: GMSMarker? = nil
+    var floorOverlay: GMSGroundOverlay? = nil
+    var routePolylines = [GMSPolyline]()
     
     override func viewDidLoad() {
         
@@ -322,9 +332,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
         
-        let groundOverlay = GMSGroundOverlay(position: self.centerCoordinateGeb46E, icon: UIImage(named: "E\(self.floor!).png"), zoomLevel: CGFloat(19.7))
-        groundOverlay.bearing = 30
-        groundOverlay.map = mapView
+        self.floorOverlay = GMSGroundOverlay(position: self.centerCoordinateGeb46E, icon: UIImage(named: "E\(self.floor!).png"), zoomLevel: CGFloat(19.7))
+        self.floorOverlay!.bearing = 30
+        self.floorOverlay!.map = mapView
         
         let raumIntValue = self.geb!.sumOfAsciiValues() + self.floor! + self.raum!
         self.raumMarker = GMSMarker(position: self.raumCoordinates[raumIntValue]!.0)
@@ -355,10 +365,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         let mapView = self.view as! GMSMapView
         let currentFloor = self.floorIntValues[sender.selectedSegmentIndex]
         
-        let groundOverlay = GMSGroundOverlay(position: self.centerCoordinateGeb46E, icon: UIImage(named: "E\(currentFloor).png"), zoomLevel: CGFloat(19.7))
-        groundOverlay.bearing = 30
-        groundOverlay.zIndex = /*currentFloor == self.floor! ?*/ 0 //: 1
-        groundOverlay.map = mapView
+        self.floorOverlay!.icon = UIImage(named: "E\(currentFloor).png")
+        self.floorOverlay!.zIndex = currentFloor == self.floor! ? 0 : 2
         
         self.raumMarker?.map = currentFloor == self.floor! ? mapView : nil
         
@@ -371,6 +379,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         (self.view as! GMSMapView).animate(toLocation: currentLocation.coordinate)
         
+        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
+        self.routePolylines.removeAll()
+        
         let origin = currentLocation.coordinate
         self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
     }
@@ -381,6 +392,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         let tapMarker = GMSMarker(position: coordinate)
         tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
         tapMarker.map = mapView
+        
+        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
+        self.routePolylines.removeAll()
         
         self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
     }
@@ -412,6 +426,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             polyline.zIndex = 1
             polyline.map = mapView
             
+            self.routePolylines.append(polyline)
+            
             let raumIntValue = self.geb!.sumOfAsciiValues() + self.floor! + self.raum!
             
             // sub steps inside university
@@ -427,6 +443,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                     subPolyline.strokeColor = subStep.key == 1 ? UIColor.green : UIColor.purple
                     subPolyline.zIndex = 1
                     subPolyline.map = mapView
+            
+                    self.routePolylines.append(subPolyline)
                     
                     let buildingEntrance = subStep.value.first!
                     let roomPath = GMSMutablePath()
@@ -438,6 +456,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                     roomPolyline.strokeColor = subStep.key == 1 ? UIColor.green : UIColor.purple
                     roomPolyline.zIndex = 1
                     roomPolyline.map = mapView
+                    
+                    self.routePolylines.append(roomPolyline)
                 }
                 
                 return
@@ -453,6 +473,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             raumPolyline.strokeColor = UIColor.green
             raumPolyline.zIndex = 1
             raumPolyline.map = mapView
+            
+            self.routePolylines.append(raumPolyline)
         }
     }
     

@@ -293,6 +293,11 @@ class CAEngine: RESTServiceDelegate {
         startProcess()
     }
     
+    func dataDidFail(reason message: String) {
+        
+        self.delegate?.processDidAbort(reason: message)
+    }
+    
     func searchFreeRaums() {
         
 //        print("In App Engine")

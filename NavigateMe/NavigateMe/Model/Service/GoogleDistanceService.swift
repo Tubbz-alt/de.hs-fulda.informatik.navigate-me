@@ -23,13 +23,15 @@ class GoogleDistanceService: RESTService {
         
         if error != nil {
             
-            print("Response Error: \(error!.localizedDescription)")
+            print("Response Error [GoogleDistanceService.swift]: \(error!.localizedDescription)")
+            self.delegate?.dataDidFail(reason: "Invalid Response from Google Map API.")
             return
         }
         
         guard let data = data else {
             
-            print("Response Data: No Data is Found.")
+            print("Response Error [GoogleDistanceService.swift]: No Data is Found.")
+            self.delegate?.dataDidFail(reason: "Invalid Response from Google Map API.")
             return
         }
         
@@ -41,6 +43,7 @@ class GoogleDistanceService: RESTService {
         } catch let jsonError {
             
             print("JSON Error [GoogleDistanceService.swift]: \(jsonError)")
+            self.delegate?.dataDidFail(reason: "Unable to decode JSON message from Google Map API.")
         }
     }
     
