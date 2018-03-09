@@ -46,8 +46,8 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
         googleMapViewController.geb = "46(E)"
-        googleMapViewController.floor = 3
-        googleMapViewController.raum = 336
+        googleMapViewController.floor = 0
+        googleMapViewController.raum = 9
         googleMapViewController.duration = "03:35"
         
         self.navigationController!.pushViewController(googleMapViewController, animated: true)
