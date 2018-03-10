@@ -26,7 +26,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                     CLLocationCoordinate2D(latitude: 50.565201098105803, longitude: 9.6852562576532364)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    CLLocationCoordinate2D(latitude: 50.564980463464479, longitude: 9.68583595007658),
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
                     CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
                     CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
                     CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
@@ -41,65 +41,120 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         268 : (
             CLLocationCoordinate2D(latitude: 50.565215579880096, longitude: 9.6854306012392044), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565081197362275, longitude: 9.6855583414435387),
+                    CLLocationCoordinate2D(latitude: 50.565164041780704, longitude: 9.6853310242295265),
+                    CLLocationCoordinate2D(latitude: 50.565178523566374, longitude: 9.6853487938642502)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
+                    CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
+                    CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565164041780704, longitude: 9.6853310242295265),
+                    CLLocationCoordinate2D(latitude: 50.565178523566374, longitude: 9.6853487938642502)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.565164041780704, longitude: 9.6853310242295265),
+                    CLLocationCoordinate2D(latitude: 50.565178523566374, longitude: 9.6853487938642502)
                 ]
             ]
         ),
         285 : (
             CLLocationCoordinate2D(latitude: 50.56502092742393, longitude: 9.68596201390028), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565081197362275, longitude: 9.6855583414435387),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
+                    CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
+                    CLLocationCoordinate2D(latitude: 50.565001547321366, longitude: 9.6858567371964455),
+                    CLLocationCoordinate2D(latitude: 50.564993454528931, longitude: 9.6858735010027885)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
+                    CLLocationCoordinate2D(latitude: 50.565001547321366, longitude: 9.6858567371964455),
+                    CLLocationCoordinate2D(latitude: 50.564993454528931, longitude: 9.6858735010027885)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
+                    CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
+                    CLLocationCoordinate2D(latitude: 50.565001547321366, longitude: 9.6858567371964455),
+                    CLLocationCoordinate2D(latitude: 50.564993454528931, longitude: 9.6858735010027885)
                 ]
             ]
         ),
         288 : (
             CLLocationCoordinate2D(latitude: 50.564916359962844, longitude: 9.6858654543757439), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565081197362275, longitude: 9.6855583414435387),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565015603220708, longitude: 9.6855640411376953),
+                    CLLocationCoordinate2D(latitude: 50.564932971509862, longitude: 9.6857953816652298),
+                    CLLocationCoordinate2D(latitude: 50.564944471808182, longitude: 9.6858061105012894),
+                    CLLocationCoordinate2D(latitude: 50.564938082753905, longitude: 9.685823880136013)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
+                    CLLocationCoordinate2D(latitude: 50.564944471808182, longitude: 9.6858061105012894),
+                    CLLocationCoordinate2D(latitude: 50.564938082753905, longitude: 9.685823880136013)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565015603220708, longitude: 9.6855640411376953),
+                    CLLocationCoordinate2D(latitude: 50.564932971509862, longitude: 9.6857953816652298),
+                    CLLocationCoordinate2D(latitude: 50.564944471808182, longitude: 9.6858061105012894),
+                    CLLocationCoordinate2D(latitude: 50.564938082753905, longitude: 9.685823880136013)
                 ]
             ]
         ),
         291 : (
             CLLocationCoordinate2D(latitude: 50.564991324846488, longitude: 9.6857001632452011), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565081197362275, longitude: 9.6855583414435387),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565015603220708, longitude: 9.6855640411376953),
+                    CLLocationCoordinate2D(latitude: 50.564990685941723, longitude: 9.6856327727437019),
+                    CLLocationCoordinate2D(latitude: 50.565001121384967, longitude: 9.6856391429901123)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
+                    CLLocationCoordinate2D(latitude: 50.564932971509862, longitude: 9.6857953816652298),
+                    CLLocationCoordinate2D(latitude: 50.564990685941723, longitude: 9.6856327727437019),
+                    CLLocationCoordinate2D(latitude: 50.565001121384967, longitude: 9.6856391429901123)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565015603220708, longitude: 9.6855640411376953),
+                    CLLocationCoordinate2D(latitude: 50.564990685941723, longitude: 9.6856327727437019),
+                    CLLocationCoordinate2D(latitude: 50.565001121384967, longitude: 9.6856391429901123)
                 ]
             ]
         ),
         292 : (
             CLLocationCoordinate2D(latitude: 50.565034344413327, longitude: 9.6857383847236633), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565081197362275, longitude: 9.6855583414435387),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
+                    CLLocationCoordinate2D(latitude: 50.565084178911988, longitude: 9.6857169270515442),
+                    CLLocationCoordinate2D(latitude: 50.565075447230136, longitude: 9.6857068687677383)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564978333781454, longitude: 9.6858382970094681),
+                    CLLocationCoordinate2D(latitude: 50.565024973817962, longitude: 9.6858781948685646),
+                    CLLocationCoordinate2D(latitude: 50.565084178911988, longitude: 9.6857169270515442),
+                    CLLocationCoordinate2D(latitude: 50.565075447230136, longitude: 9.6857068687677383)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506415993168, longitude: 9.685608297586441),
+                    CLLocationCoordinate2D(latitude: 50.565109096141533, longitude: 9.6856481954455376),
+                    CLLocationCoordinate2D(latitude: 50.565084178911988, longitude: 9.6857169270515442),
+                    CLLocationCoordinate2D(latitude: 50.565075447230136, longitude: 9.6857068687677383)
                 ]
             ]
         ),
@@ -245,26 +300,61 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         386 : (
             CLLocationCoordinate2D(latitude: 50.565025612722266, longitude: 9.6859667077660561), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565046696558944, longitude: 9.6853970736265182),
+                    CLLocationCoordinate2D(latitude: 50.565087160461523, longitude: 9.6854366362094879),
+                    CLLocationCoordinate2D(latitude: 50.565096956980085, longitude: 9.6854138374328613),
+                    CLLocationCoordinate2D(latitude: 50.565083114072813, longitude: 9.6854010969400406),
+                    CLLocationCoordinate2D(latitude: 50.565062882124145, longitude: 9.6854161843657494),
+                    CLLocationCoordinate2D(latitude: 50.565066928514582, longitude: 9.6854560822248459),
+                    CLLocationCoordinate2D(latitude: 50.565083114072813, longitude: 9.6854661405086517),
+                    CLLocationCoordinate2D(latitude: 50.565107818335221, longitude: 9.6854909509420395),
+                    CLLocationCoordinate2D(latitude: 50.56506032650897, longitude: 9.6856200322508812),
+                    CLLocationCoordinate2D(latitude: 50.565091845753265, longitude: 9.6856585890054703),
+                    CLLocationCoordinate2D(latitude: 50.565014112443713, longitude: 9.6858644485473633),
+                    CLLocationCoordinate2D(latitude: 50.565000908416756, longitude: 9.6858543902635574),
+                    CLLocationCoordinate2D(latitude: 50.564991324846488, longitude: 9.6858785301446915)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564981954242548, longitude: 9.6858356148004532),
+                    CLLocationCoordinate2D(latitude: 50.565000908416756, longitude: 9.6858543902635574),
+                    CLLocationCoordinate2D(latitude: 50.564991324846488, longitude: 9.6858785301446915)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506032650897, longitude: 9.6856200322508812),
+                    CLLocationCoordinate2D(latitude: 50.565091845753265, longitude: 9.6856585890054703),
+                    CLLocationCoordinate2D(latitude: 50.565014112443713, longitude: 9.6858644485473633),
+                    CLLocationCoordinate2D(latitude: 50.565000908416756, longitude: 9.6858543902635574),
+                    CLLocationCoordinate2D(latitude: 50.564991324846488, longitude: 9.6858785301446915)
                 ]
             ]
         ),
         388 : (
             CLLocationCoordinate2D(latitude: 50.564925943548381, longitude: 9.6858768537640572), [
                 CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565046696558944, longitude: 9.6853970736265182),
+                    CLLocationCoordinate2D(latitude: 50.565087160461523, longitude: 9.6854366362094879),
+                    CLLocationCoordinate2D(latitude: 50.565096956980085, longitude: 9.6854138374328613),
+                    CLLocationCoordinate2D(latitude: 50.565083114072813, longitude: 9.6854010969400406),
+                    CLLocationCoordinate2D(latitude: 50.565062882124145, longitude: 9.6854161843657494),
+                    CLLocationCoordinate2D(latitude: 50.565066928514582, longitude: 9.6854560822248459),
+                    CLLocationCoordinate2D(latitude: 50.565083114072813, longitude: 9.6854661405086517),
+                    CLLocationCoordinate2D(latitude: 50.565107818335221, longitude: 9.6854909509420395),
+                    CLLocationCoordinate2D(latitude: 50.56506032650897, longitude: 9.6856200322508812),
+                    CLLocationCoordinate2D(latitude: 50.565091845753265, longitude: 9.6856585890054703),
+                    CLLocationCoordinate2D(latitude: 50.565014112443713, longitude: 9.6858644485473633),
+                    CLLocationCoordinate2D(latitude: 50.564969815048322, longitude: 9.6858128160238266)
                 ],
                 CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.564981954242548, longitude: 9.6858356148004532),
+                    CLLocationCoordinate2D(latitude: 50.564969815048322, longitude: 9.6858128160238266)
                 ],
                 CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265) : [
-                    
+                    CLLocationCoordinate2D(latitude: 50.565187255229141, longitude: 9.6852958202362061),
+                    CLLocationCoordinate2D(latitude: 50.56506032650897, longitude: 9.6856200322508812),
+                    CLLocationCoordinate2D(latitude: 50.565091845753265, longitude: 9.6856585890054703),
+                    CLLocationCoordinate2D(latitude: 50.565014112443713, longitude: 9.6858644485473633),
+                    CLLocationCoordinate2D(latitude: 50.564969815048322, longitude: 9.6858128160238266)
                 ]
             ]
         ),
