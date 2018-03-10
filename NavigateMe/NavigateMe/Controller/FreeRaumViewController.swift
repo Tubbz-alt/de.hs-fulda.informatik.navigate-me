@@ -42,15 +42,15 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
-//        app.searchFreeRaums()
+        app.searchFreeRaums()
         
-        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
-        googleMapViewController.geb = "46(E)"
-        googleMapViewController.floor = 0
-        googleMapViewController.raum = 35
-        googleMapViewController.duration = "03:35"
-        
-        self.navigationController!.pushViewController(googleMapViewController, animated: true)
+//        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
+//        googleMapViewController.geb = "46(E)"
+//        googleMapViewController.floor = 0
+//        googleMapViewController.raum = 35
+//        googleMapViewController.duration = "03:35"
+//
+//        self.navigationController!.pushViewController(googleMapViewController, animated: true)
     }
     
     @IBAction func navigateMeInThisRaum(_ sender: UIButton) {
@@ -88,8 +88,25 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GebCell", for: indexPath) as! GebCollectionViewCell
         
-//        print("\nCell\(indexPath): \(cell)\n")
-//        print("Cell\(indexPath) Subviews: \(cell.subviews)\n")
+        print("""
+        \nBefore Clean:
+        Cell\(indexPath): \(cell)
+        Cell\(indexPath) Subviews: \(cell.subviews)\n
+        """)
+        
+        cell.subviews.forEach { subview in
+            
+            if let raumButton = subview as? UIButton {
+                
+                raumButton.removeFromSuperview()
+            }
+        }
+        
+        print("""
+        \nAfter Clean:
+        Cell\(indexPath): \(cell)
+        Cell\(indexPath) Subviews: \(cell.subviews)\n
+        """)
         
         guard let floors = self.freeRaums["46(E)"] else {
             
@@ -197,11 +214,17 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
 //        print("After View Loading ...\n")
         print("Start Image Processor Engine ...\n")
         
-        let widthDiffBetweenCollectionViewAndCell = CGFloat(45)
-        let widthDiffBetweenCellAndImageFrame = CGFloat(40)
+//        let widthDiffBetweenCollectionViewAndCell = CGFloat(45)
+//        let widthDiffBetweenCellAndImageFrame = CGFloat(40)
         
-        let heightDiffBetweenCollectionViewAndCell = CGFloat(178)
-        let heightDiffBetweenCellAndImageFrame = CGFloat(83)
+        let widthDiffBetweenCollectionViewAndCell = CGFloat(178)
+        let widthDiffBetweenCellAndImageFrame = CGFloat(83)
+        
+//        let heightDiffBetweenCollectionViewAndCell = CGFloat(178)
+//        let heightDiffBetweenCellAndImageFrame = CGFloat(83)
+        
+        let heightDiffBetweenCollectionViewAndCell = CGFloat(45)
+        let heightDiffBetweenCellAndImageFrame = CGFloat(40)
         
         let imageFrameWidth = self.gebCollectionView.frame.width - (widthDiffBetweenCollectionViewAndCell + widthDiffBetweenCellAndImageFrame)
         let imageFrameHeight = self.gebCollectionView.frame.height - (heightDiffBetweenCollectionViewAndCell + heightDiffBetweenCellAndImageFrame)
