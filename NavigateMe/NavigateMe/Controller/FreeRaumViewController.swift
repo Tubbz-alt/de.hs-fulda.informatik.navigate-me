@@ -18,6 +18,19 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var searchDateTime: UIDatePicker!
     @IBOutlet weak var gebCollectionView: UICollectionView!
 
+    override func loadView() {
+        
+        super.loadView()
+        
+        // doing one time image processing for entire application life cycle
+        guard IPEngine.floorPlans.isEmpty else {
+            
+            return
+        }
+        
+        self.startImageProcessor()
+    }
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -26,14 +39,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         gebCollectionView.delegate = self
         gebCollectionView.dataSource = self
-
-        // doing one time image processing for entire application life cycle
-        guard IPEngine.floorPlans.isEmpty else {
-            
-            return
-        }
-        
-        self.startImageProcessor()
     }
     
     @IBAction func searchFreeRaums(_ sender: UIButton) {
@@ -88,12 +93,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GebCell", for: indexPath) as! GebCollectionViewCell
         
-        print("""
-        \nBefore Clean:
-        Cell\(indexPath): \(cell)
-        Cell\(indexPath) Subviews: \(cell.subviews)\n
-        """)
-        
         cell.subviews.forEach { subview in
             
             if let raumButton = subview as? UIButton {
@@ -101,12 +100,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
                 raumButton.removeFromSuperview()
             }
         }
-        
-        print("""
-        \nAfter Clean:
-        Cell\(indexPath): \(cell)
-        Cell\(indexPath) Subviews: \(cell.subviews)\n
-        """)
         
         guard let floors = self.freeRaums["46(E)"] else {
             
@@ -211,32 +204,9 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func startImageProcessor() {
         
-//        print("After View Loading ...\n")
         print("Start Image Processor Engine ...\n")
         
-//        let widthDiffBetweenCollectionViewAndCell = CGFloat(45)
-//        let widthDiffBetweenCellAndImageFrame = CGFloat(40)
-        
-        let widthDiffBetweenCollectionViewAndCell = CGFloat(178)
-        let widthDiffBetweenCellAndImageFrame = CGFloat(83)
-        
-//        let heightDiffBetweenCollectionViewAndCell = CGFloat(178)
-//        let heightDiffBetweenCellAndImageFrame = CGFloat(83)
-        
-        let heightDiffBetweenCollectionViewAndCell = CGFloat(45)
-        let heightDiffBetweenCellAndImageFrame = CGFloat(40)
-        
-        let imageFrameWidth = self.gebCollectionView.frame.width - (widthDiffBetweenCollectionViewAndCell + widthDiffBetweenCellAndImageFrame)
-        let imageFrameHeight = self.gebCollectionView.frame.height - (heightDiffBetweenCollectionViewAndCell + heightDiffBetweenCellAndImageFrame)
-        
-//        let cellFrameWidth = self.gebCollectionView.frame.width - widthDiffBetweenCollectionViewAndCell
-//        let cellFrameHeight = self.gebCollectionView.frame.height - heightDiffBetweenCollectionViewAndCell
-
-        let imageFrame = CGRect(x: CGFloat(20), y: CGFloat(62), width: imageFrameWidth, height: imageFrameHeight)
-//        let cellFrame = CGRect(x: CGFloat(0), y: CGFloat(89), width: cellFrameWidth, height: cellFrameHeight)
-
-        IPEngine.imageViewFrame = imageFrame
-//        ImageProcessor.parentViewFrames = [cellFrame, self.gebCollectionView.frame]
+        IPEngine.imageViewFrame = CGRect(x: CGFloat(20), y: CGFloat(62), width: CGFloat(643), height: CGFloat(356))
         IPEngine.processImage()
         
         self.generateFreeRaumButtons()
