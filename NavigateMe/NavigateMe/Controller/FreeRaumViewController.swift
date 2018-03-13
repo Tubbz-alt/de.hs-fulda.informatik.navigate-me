@@ -18,9 +18,16 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var searchDateTime: UIDatePicker!
     @IBOutlet weak var gebCollectionView: UICollectionView!
 
+    var shortestPathFromGeb46E = [String : (distance: Int, parent: String?)]()
+    
     override func loadView() {
         
         super.loadView()
+        
+        // temporary purpose
+        self.shortestPathFromGeb46E = NEngine().generateShortestPath(from: "46(E).1")
+        print("\nShorttest Path from Gebaude 46(E) entrance 1(main): \(self.shortestPathFromGeb46E)\n")
+        return
         
         // doing one time image processing for entire application life cycle
         guard IPEngine.floorPlans.isEmpty else {
@@ -47,15 +54,16 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
-        app.searchFreeRaums()
+//        app.searchFreeRaums()
         
-//        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
-//        googleMapViewController.geb = "46(E)"
-//        googleMapViewController.floor = 0
-//        googleMapViewController.raum = 35
-//        googleMapViewController.duration = "03:35"
-//
-//        self.navigationController!.pushViewController(googleMapViewController, animated: true)
+        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
+        googleMapViewController.geb = "46(E)"
+        googleMapViewController.floor = 0
+        googleMapViewController.raum = 35
+        googleMapViewController.duration = "03:35"
+        googleMapViewController.shortestPathFromGeb46E = self.shortestPathFromGeb46E
+        
+        self.navigationController!.pushViewController(googleMapViewController, animated: true)
     }
     
     @IBAction func navigateMeInThisRaum(_ sender: UIButton) {

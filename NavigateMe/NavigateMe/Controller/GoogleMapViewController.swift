@@ -13,9 +13,22 @@ import GoogleMaps
 class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, EngineDelegate {
 
     let navigation = NEngine()
-    
+
     let floorStringValues = ["Floor: 0", "Floor: 1", "Floor: 3"]
     let floorIntValues = [0, 1, 3]
+    
+    let universityBlock1Vertexs = [
+        "46(E).1" : CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977),
+        "a" : CLLocationCoordinate2D(latitude: 50.564930841824669, longitude: 9.6854161843657494),
+        "b" : CLLocationCoordinate2D(latitude: 50.564727669415412, longitude: 9.6859190985560417),
+        "c" : CLLocationCoordinate2D(latitude: 50.564386278163909, longitude: 9.6856210380792618),
+        "d" : CLLocationCoordinate2D(latitude: 50.564578803540599, longitude: 9.6850886195898056),
+        "e" : CLLocationCoordinate2D(latitude: 50.564451873181468, longitude: 9.6849659085273743),
+        "f" : CLLocationCoordinate2D(latitude: 50.564402676926854, longitude: 9.684707410633564),
+        "g" : CLLocationCoordinate2D(latitude: 50.564216539983569, longitude: 9.6845464780926704),
+        "h" : CLLocationCoordinate2D(latitude: 50.564090034593292, longitude: 9.6853632107377052),
+        "i" : CLLocationCoordinate2D(latitude: 50.563978862909359, longitude: 9.6852653101086617)
+    ]
 
     // tuple(0 -> raum coordinate, 1 -> dictionary where key -> gebaude entrance coordinate, value -> steps from entrance to raum)
     let raumCoordinates = [
@@ -588,6 +601,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     var raumMarker: GMSMarker? = nil
     var floorOverlay: GMSGroundOverlay? = nil
     var routePolylines = [GMSPolyline]()
+    var universityBlock1: GMSCoordinateBounds? = nil
+    var shortestPathFromGeb46E = [String : (distance: Int, parent: String?)]()
     
     override func viewDidLoad() {
         
@@ -609,6 +624,22 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.raumMarker = GMSMarker(position: self.raumCoordinates[raumIntValue]!.0)
         self.raumMarker!.title = "Free for next \(self.duration!)"
         self.raumMarker!.map = mapView
+    
+        let block1Path = GMSMutablePath()
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564934249320913, longitude: 9.6867069974541664))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.563838939555083, longitude: 9.6857182681560516))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564620545664518, longitude: 9.6831188723444939))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.565801662070058, longitude: 9.6841840445995331))
+        
+        self.universityBlock1 = GMSCoordinateBounds(path: block1Path)
+        
+//        let block1Polygon = GMSPolygon(path: block1Path)
+//        block1Polygon.strokeWidth = 7
+//        block1Polygon.strokeColor = UIColor.blue
+//        block1Polygon.map = mapView
+//        self.universityBlock1Vertexs.keys.forEach { vertex in
+//            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
+//        }
         
         self.view = mapView
         
@@ -626,7 +657,37 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.activityType = CLActivityType.otherNavigation
         self.locationManager.distanceFilter = 100
-        self.locationManager.startUpdatingLocation()
+//        self.locationManager.startUpdatingLocation()
+    }
+    
+    func drawShortestPathOnMap(destination: String, mapView: GMSMapView) {
+        
+        var vertex = destination
+        
+        let shortestPath = GMSMutablePath()
+        shortestPath.add(self.universityBlock1Vertexs[vertex]!)
+        
+        var counter = 1
+        
+        while(self.shortestPathFromGeb46E[vertex]!.parent != nil) {
+            
+            vertex = self.shortestPathFromGeb46E[vertex]!.parent!
+            shortestPath.add(self.universityBlock1Vertexs[vertex]!)
+            
+            counter += 1
+        }
+        
+        guard counter != 1 else {
+            return
+        }
+        
+        let polylineFromShortestPath = GMSPolyline(path: shortestPath)
+        polylineFromShortestPath.strokeWidth = 5
+        polylineFromShortestPath.strokeColor = UIColor.green
+        polylineFromShortestPath.zIndex = 1
+        polylineFromShortestPath.map = mapView
+        
+        self.routePolylines.append(polylineFromShortestPath)
     }
     
     @IBAction func drawFloorPlanOnMap(_ sender: UISegmentedControl) {
@@ -652,12 +713,14 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.routePolylines.removeAll()
         
         let origin = currentLocation.coordinate
-        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
+//        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
     }
 
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
-        print("\nTap At: \(coordinate)\n")
+        print("\nTap At: \(coordinate)")
+        print("Within university block 1: \(self.universityBlock1!.contains(coordinate))\n")
+        
         let tapMarker = GMSMarker(position: coordinate)
         tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
         tapMarker.map = mapView
@@ -665,13 +728,42 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
         self.routePolylines.removeAll()
         
-        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
+        let insideUniversityArea = self.universityBlock1!.contains(coordinate)
+        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+            : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+        
+        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
     }
     
-    func processDidComplete(then dto: Any) {
+    func showDirectionInsideUniversity(_ nearestCoordinate: CLLocationCoordinate2D) {
         
-        let steps = dto as! [GoogleStep]
+        // draw line from current location to start step
+        DispatchQueue.main.async {
+            
+            let mapView = self.view as! GMSMapView
+            let nearestVertex = self.universityBlock1Vertexs.filter({ $0.value == nearestCoordinate }).first!.key
+            
+            self.drawShortestPathOnMap(destination: nearestVertex, mapView: mapView)
+            
+            let gebEntrance = CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977)
+            let raumIntValue = self.geb!.sumOfAsciiValues() + self.floor! + self.raum!
+            let raumPath = GMSMutablePath()
+            raumPath.add(gebEntrance)
+            self.raumCoordinates[raumIntValue]!.1[gebEntrance]!.forEach { step in raumPath.add(step) }
+            
+            let raumPolyline = GMSPolyline(path: raumPath)
+            raumPolyline.strokeWidth = 5
+            raumPolyline.strokeColor = UIColor.green
+            raumPolyline.zIndex = 1
+            raumPolyline.map = mapView
+            
+            self.routePolylines.append(raumPolyline)
+        }
+    }
+    
+    func showDirectionOutsideUniversity(_ steps: [GoogleStep]) {
         
+        // draw line from current location to start step
         DispatchQueue.main.async {
             
             let mapView = self.view as! GMSMapView
@@ -712,7 +804,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                     subPolyline.strokeColor = subStep.key == 1 ? UIColor.green : UIColor.purple
                     subPolyline.zIndex = 1
                     subPolyline.map = mapView
-            
+                    
                     self.routePolylines.append(subPolyline)
                     
                     let buildingEntrance = subStep.value.first!
@@ -747,15 +839,28 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         }
     }
     
+    func processDidComplete(then dto: Any) {
+        
+        switch dto {
+            
+            case let steps as [GoogleStep]:
+                self.showDirectionOutsideUniversity(steps)
+                break
+            
+            case let nearestCoordinate as CLLocationCoordinate2D:
+                self.showDirectionInsideUniversity(nearestCoordinate)
+                break
+            
+            default: print("No match.")
+        }
+    }
+    
     func processDidAbort(reason message: String) {
         
         DispatchQueue.main.async {
             
             let abortAlert = UIAlertController(title: "Process is aborted.", message: "Reason: " + message, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { alertAction in
-                
-                // TODO - Back to existing FreeRaumViewController instance
-            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             abortAlert.addAction(cancelAction)
             self.present(abortAlert, animated: true)
         }

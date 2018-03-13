@@ -17,8 +17,45 @@ class NEngine: RESTServiceDelegate {
     private let googleDirection = GoogleDirectionService()
     private let googleDistance = GoogleDistanceService()
     
+    // path graph dictionary -> key = vertex, value = tuple(adjacent vertex, weight)
+    private let pathGraphInsideUniversity = [
+        "46(E).1" : [
+            ("a", 1)
+        ],
+        "a" : [
+            ("b", 3),
+            ("c", 5),
+            ("d", 4)
+        ],
+        "b" : [
+            ("c", 4)
+        ],
+        "c" : [
+            ("d", 3),
+            ("h", 2)
+        ],
+        "d" : [
+            ("e", 1)
+        ],
+        "e" : [
+            ("f", 2)
+        ],
+        "f" : [
+            ("g", 1)
+        ],
+        "g" : nil,
+        "h" : [
+            ("i", 1)
+        ],
+        "i" : nil
+    ]
+    
     private var origins: [CLLocationCoordinate2D]?
     private var destinations: [CLLocationCoordinate2D]?
+    private var insideUniversityArea = false
+    
+    // dictionary -> key = vertex, value = tuple(distance, parent, last update time)
+    private var pathCalculationMatrix = [String : (distance: Int, parent: String?, time: Date)]()
     
     var delegate: EngineDelegate?
     
@@ -39,10 +76,11 @@ class NEngine: RESTServiceDelegate {
 
     // TODO: actual name will be getDistanceMatrix that will fit for any usecases
 //    func getDistanceMatrix(origins: [CLLocationCoordinate2D], destinations: [CLLocationCoordinate2D]) {
-    func getDirectionFromDistanceMatrix(origins: [CLLocationCoordinate2D], destinations: [CLLocationCoordinate2D]) {
+    func getDirectionFromDistanceMatrix(origins: [CLLocationCoordinate2D], destinations: [CLLocationCoordinate2D], insideUniversityArea: Bool) {
     
         self.origins = origins
         self.destinations = destinations
+        self.insideUniversityArea = insideUniversityArea
         self.googleDistance.get(origins: origins, destinations: destinations)
     }
     
@@ -92,6 +130,12 @@ class NEngine: RESTServiceDelegate {
             }
         }
         
+        if self.insideUniversityArea {
+            
+            self.delegate?.processDidComplete(then: self.destinations![minIndex])
+            return
+        }
+        
         self.getDirection(origin: self.origins![0], destination: self.destinations![minIndex])
     }
     
@@ -116,4 +160,60 @@ class NEngine: RESTServiceDelegate {
         self.delegate?.processDidAbort(reason: message)
     }
     
+    func initializePathCalculationMatrix(for source: String) {
+        
+        self.pathGraphInsideUniversity.keys.forEach { vertex in
+            
+            self.pathCalculationMatrix[vertex] = (Int.max, nil, Date())
+        }
+        
+        self.pathCalculationMatrix[source]!.distance = 0
+    }
+    
+    func extractVertexHavingMinDistance() -> (key: String, value: (distance: Int, parent: String?, time: Date)) {
+        
+        let minDistance = self.pathCalculationMatrix.min(by: { $0.value.distance < $1.value.distance })!.value.distance
+        let vertexs = self.pathCalculationMatrix.filter({ $0.value.distance == minDistance })
+        let sortedVertexs = vertexs.sorted(by: { $0.value.time < $1.value.time })
+        let vertexHavingMinDistance = sortedVertexs.first!
+        self.pathCalculationMatrix.remove(at: self.pathCalculationMatrix.index(forKey: vertexHavingMinDistance.key)!)
+        
+        return vertexHavingMinDistance
+    }
+    
+    func relaxAdjacentVertex(_ adjacentVertex: (String, Int), of vertex: (key: String, value: (distance: Int, parent: String?, time: Date))) {
+        
+        guard self.pathCalculationMatrix[adjacentVertex.0] != nil else {
+            
+            return
+        }
+        
+        let totalDistance = vertex.value.distance + adjacentVertex.1
+        
+        if self.pathCalculationMatrix[adjacentVertex.0]!.distance > totalDistance {
+            
+            self.pathCalculationMatrix[adjacentVertex.0]!.distance = totalDistance
+            self.pathCalculationMatrix[adjacentVertex.0]!.parent = vertex.key
+            self.pathCalculationMatrix[adjacentVertex.0]!.time = Date()
+        }
+    }
+    
+    func generateShortestPath(from source: String) -> [String : (distance: Int, parent: String?)] {
+        
+        self.initializePathCalculationMatrix(for: source)
+        
+        var pathResult = [String : (distance: Int, parent: String?)]()
+        
+        while !self.pathCalculationMatrix.isEmpty {
+            
+            let extractedVertex = self.extractVertexHavingMinDistance()
+            pathResult[extractedVertex.key] = (extractedVertex.value.distance, extractedVertex.value.parent)
+            self.pathGraphInsideUniversity[extractedVertex.key]!?.forEach({ adjacentVertex in
+                
+                self.relaxAdjacentVertex(adjacentVertex, of: extractedVertex)
+            })
+        }
+        
+        return pathResult
+    }
 }
