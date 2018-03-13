@@ -29,7 +29,7 @@ class NEngine: RESTServiceDelegate {
             ("p", 2)
         ],
         "b" : [
-            ("c", 4),
+            ("at", 3),
             ("v", 1)
         ],
         "c" : [
@@ -89,11 +89,13 @@ class NEngine: RESTServiceDelegate {
         ],
         "46(E).3" : nil,
         "t" : [
-            ("u", 2)
+            ("u", 2),
+            ("ad", 5)
         ],
         "u" : [
             ("v", 2),
-            ("w", 1)
+            ("w", 1),
+            ("ag", 1)
         ],
         "v" : [
             ("46(E).2", 1),
@@ -101,21 +103,114 @@ class NEngine: RESTServiceDelegate {
         ],
         "46(E).2" : nil,
         "w" : [
-            ("x", 2)
+            ("x", 2),
+            ("aq", 3)
         ],
         "x" : [
             ("y", 1)
         ],
         "y" : [
-            ("z", 3)
+            ("z", 3),
+            ("ah", 1)
         ],
         "z" : [
             ("aa", 1)
         ],
         "aa" : [
-            ("ab", 2)
+            ("ab", 1),
+            ("ao", 2)
         ],
-        "ab" : nil
+        "ab" : [
+            ("ac", 2)
+        ],
+        "ac" : nil,
+        "ad" : [
+            ("ae", 1),
+            ("t", 5)
+        ],
+        "ae" : [
+            ("ad", 1),
+            ("Mensa.1", 1),
+            ("ak", 2)
+        ],
+        "Mensa.1" : nil,
+        "af" : [
+            ("ae", 2),
+            ("ai", 3),
+            ("SSC.1", 1)
+        ],
+        "SSC.1" : nil,
+        "ag" : [
+            ("af", 1),
+            ("ah", 3)
+        ],
+        "ah" : [
+            ("ai", 1),
+            ("Bibliothek.1", 1)
+        ],
+        "Bibliothek.1" : nil,
+        "ai" : [
+            ("aj", 1),
+            ("Bibliothek.2", 1)
+        ],
+        "Bibliothek.2" : nil,
+        "aj" : [
+            ("ak", 1),
+            ("al", 2)
+        ],
+        "ak" : [
+            ("Mensa.2", 1)
+        ],
+        "Mensa.2" : nil,
+        "al" : [
+            ("aj", 2),
+            ("an", 5),
+        ],
+        "am" : [
+            ("Geb(P).1", 1),
+            ("an", 3),
+        ],
+        "21(P).1" : nil,
+        "an" : [
+            ("am", 3),
+            ("al", 5),
+            ("ao", 3)
+        ],
+        "ao" : [
+            ("20(O).1", 1),
+            ("ap", 3),
+            ("an", 3)
+        ],
+        "20(O).1" : nil,
+        "ap" : [
+            ("19(N).1", 1),
+            ("ao", 3),
+            ("aa", 2)
+        ],
+        "19(N).1" : nil,
+        "aq" : [
+            ("w", 3),
+            ("ar", 2),
+            ("33(M).1", 1)
+        ],
+        "33(M).1" : nil, // need to verify gebaude nummer and letter
+        "ar" : [
+            ("at", 1),
+            ("33(M).2", 2),
+            ("aq", 2),
+            ("as", 2)
+        ],
+        "33(M).2" : nil, // need to verify gebaude nummer and letter
+        "as" : [
+            ("ar", 2),
+            ("33(M).3", 1)
+        ],
+        "33(M).3" : nil, // need to verify gebaude nummer and letter
+        "at" : [
+            ("ar", 1),
+            ("c", 1),
+            ("b", 3)
+        ]
     ]
     
     private var origins: [CLLocationCoordinate2D]?

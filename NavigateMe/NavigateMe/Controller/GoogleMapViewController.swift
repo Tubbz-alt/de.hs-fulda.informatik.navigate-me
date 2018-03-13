@@ -50,7 +50,36 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         "y" : CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
         "z" : CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
         "aa" : CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
-        "ab" : CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879)
+        "ab" : CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
+        "ac" : CLLocationCoordinate2D(latitude: 50.56455793246478, longitude: 9.6879015862941742),
+        "ad" : CLLocationCoordinate2D(latitude: 50.565917514663312, longitude: 9.6864210069179535),
+        "ae" : CLLocationCoordinate2D(latitude: 50.565793143485777, longitude: 9.6867254376411438),
+        "Mensa.1" : CLLocationCoordinate2D(latitude: 50.565874069974221, longitude: 9.686771035194397),
+        "af" : CLLocationCoordinate2D(latitude: 50.565561437402849, longitude: 9.6865792572498322),
+        "SSC.1" : CLLocationCoordinate2D(latitude: 50.565619364030404, longitude: 9.6864263713359833),
+        "ag" : CLLocationCoordinate2D(latitude: 50.565324618979012, longitude: 9.6864505112171173),
+        "ah" : CLLocationCoordinate2D(latitude: 50.565145726574762, longitude: 9.6870405972003937),
+        "Bibliothek.1" : CLLocationCoordinate2D(latitude: 50.565097169947862, longitude: 9.6871921420097351),
+        "ai" : CLLocationCoordinate2D(latitude: 50.565344211915345, longitude: 9.6871867775917053),
+        "Bibliothek.2" : CLLocationCoordinate2D(latitude: 50.565301618565094, longitude: 9.6873342990875244),
+        "aj" : CLLocationCoordinate2D(latitude: 50.565583585827689, longitude: 9.6873638033866882),
+        "ak" : CLLocationCoordinate2D(latitude: 50.56571051313837, longitude: 9.6870097517967224),
+        "Mensa.2" : CLLocationCoordinate2D(latitude: 50.565761624710575, longitude: 9.6870513260364532),
+        "al" : CLLocationCoordinate2D(latitude: 50.566055515174732, longitude: 9.6877916157245636),
+        "am" : CLLocationCoordinate2D(latitude: 50.566098959696497, longitude: 9.6887243539094925),
+        "21(P).1" : CLLocationCoordinate2D(latitude: 50.566053811467178, longitude: 9.6888530999422073),
+        "an" : CLLocationCoordinate2D(latitude: 50.565839143822565, longitude: 9.6885151416063309),
+        "ao" : CLLocationCoordinate2D(latitude: 50.565550789117978, longitude: 9.6882522851228714),
+        "20(O).1" : CLLocationCoordinate2D(latitude: 50.565517566453728, longitude: 9.6883635967969894),
+        "ap" : CLLocationCoordinate2D(latitude: 50.565032853636914, longitude: 9.6877668052911758),
+        "19(N).1" : CLLocationCoordinate2D(latitude: 50.564976630034948, longitude: 9.6878968924283981),
+        "aq" : CLLocationCoordinate2D(latitude: 50.564592007685846, longitude: 9.6862895786762238),
+        "33(M).1" : CLLocationCoordinate2D(latitude: 50.564525560981927, longitude: 9.6864746510982513),
+        "ar" : CLLocationCoordinate2D(latitude: 50.564331331617872, longitude: 9.6860294044017792),
+        "33(M).2" : CLLocationCoordinate2D(latitude: 50.564203548704931, longitude: 9.6865363419055939),
+        "as" : CLLocationCoordinate2D(latitude: 50.564111544793043, longitude: 9.6858443319797516),
+        "33(M).3" : CLLocationCoordinate2D(latitude: 50.564053616311938, longitude: 9.6860320866107941),
+        "at" : CLLocationCoordinate2D(latitude: 50.564440372762924, longitude: 9.685683399438858)
     ]
     
     // tuple(0 -> raum coordinate, 1 -> dictionary where key -> gebaude entrance coordinate, value -> steps from entrance to raum)
@@ -631,7 +660,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         super.viewDidLoad()
 
-        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 18) // 20
+        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 20) // 18
         
         let mapView = GMSMapView.map(withFrame: .zero, camera: cameraPostion)
         mapView.delegate = self
@@ -666,13 +695,13 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 
         self.universityBlock1 = GMSCoordinateBounds(path: block1Path)
         
-        let block1Polygon = GMSPolygon(path: block1Path)
-        block1Polygon.strokeWidth = 7
-        block1Polygon.strokeColor = UIColor.blue
-        block1Polygon.map = mapView
-        self.universityBlock1Vertexs.keys.forEach { vertex in
-            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
-        }
+//        let block1Polygon = GMSPolygon(path: block1Path)
+//        block1Polygon.strokeWidth = 7
+//        block1Polygon.strokeColor = UIColor.blue
+//        block1Polygon.map = mapView
+//        self.universityBlock1Vertexs.keys.forEach { vertex in
+//            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
+//        }
         
         self.view = mapView
         
@@ -690,7 +719,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.activityType = CLActivityType.otherNavigation
         self.locationManager.distanceFilter = 100
-//        self.locationManager.startUpdatingLocation()
+        self.locationManager.startUpdatingLocation()
     }
     
     func drawShortestPathOnMap(destination: String, mapView: GMSMapView) {
@@ -746,27 +775,31 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.routePolylines.removeAll()
         
         let origin = currentLocation.coordinate
-//        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue }))
+        let insideUniversityArea = self.universityBlock1!.contains(origin)
+        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+                                                : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+        
+        self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: destinations, insideUniversityArea: insideUniversityArea)
     }
 
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        
-        print("\nTap At: \(coordinate)")
-        print("Within university block 1: \(self.universityBlock1!.contains(coordinate))\n")
-        
-        let tapMarker = GMSMarker(position: coordinate)
-        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
-        tapMarker.map = mapView
-        
-        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
-        self.routePolylines.removeAll()
-        
-        let insideUniversityArea = self.universityBlock1!.contains(coordinate)
-        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-            : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
-        
-        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
-    }
+//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+//
+//        print("\nTap At: \(coordinate)")
+//        print("Within university block 1: \(self.universityBlock1!.contains(coordinate))\n")
+//
+//        let tapMarker = GMSMarker(position: coordinate)
+//        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
+//        tapMarker.map = mapView
+//
+//        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
+//        self.routePolylines.removeAll()
+//
+//        let insideUniversityArea = self.universityBlock1!.contains(coordinate)
+//        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+//            : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+//
+//        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
+//    }
     
     func showDirectionInsideUniversity(_ nearestCoordinate: CLLocationCoordinate2D) {
         
