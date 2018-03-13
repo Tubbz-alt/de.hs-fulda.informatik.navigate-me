@@ -27,8 +27,28 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         "f" : CLLocationCoordinate2D(latitude: 50.564402676926854, longitude: 9.684707410633564),
         "g" : CLLocationCoordinate2D(latitude: 50.564216539983569, longitude: 9.6845464780926704),
         "h" : CLLocationCoordinate2D(latitude: 50.564090034593292, longitude: 9.6853632107377052),
-        "i" : CLLocationCoordinate2D(latitude: 50.563978862909359, longitude: 9.6852653101086617)
+        "i" : CLLocationCoordinate2D(latitude: 50.563978862909359, longitude: 9.6852653101086617),
+        "j" : CLLocationCoordinate2D(latitude: 50.564565599391628, longitude: 9.684629961848259),
+        "k" : CLLocationCoordinate2D(latitude: 50.564856089813674, longitude: 9.6848861128091812),
+        "l" : CLLocationCoordinate2D(latitude: 50.56493595306894, longitude: 9.6846792474389076),
+        "Halle-8" : CLLocationCoordinate2D(latitude: 50.564896979817277, longitude: 9.6846433728933334),
+        "m" : CLLocationCoordinate2D(latitude: 50.564967472396447, longitude: 9.6845950931310654),
+        "n" : CLLocationCoordinate2D(latitude: 50.565023270073162, longitude: 9.6846470609307289),
+        "51(G).1" : CLLocationCoordinate2D(latitude: 50.565043502038826, longitude: 9.6845870465040207),
+        "o" : CLLocationCoordinate2D(latitude: 50.565159356496139, longitude: 9.6847784891724586),
+        "p" : CLLocationCoordinate2D(latitude: 50.56505351153443, longitude: 9.6850799024105072),
+        "q"
     ]
+    
+    CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
+    CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
+    CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
+    CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
+    CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
+    CLLocationCoordinate2D(latitude: 50.564953842419577, longitude: 9.6865266188979149),
+    CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
+    CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
+    CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) // gebaude 46(E) entrance 2
 
     // tuple(0 -> raum coordinate, 1 -> dictionary where key -> gebaude entrance coordinate, value -> steps from entrance to raum)
     let raumCoordinates = [
@@ -608,7 +628,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         super.viewDidLoad()
 
-        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 20) // 18
+        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 18) // 20
         
         let mapView = GMSMapView.map(withFrame: .zero, camera: cameraPostion)
         mapView.delegate = self
@@ -626,20 +646,30 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.raumMarker!.map = mapView
     
         let block1Path = GMSMutablePath()
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564934249320913, longitude: 9.6867069974541664))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.563838939555083, longitude: 9.6857182681560516))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564620545664518, longitude: 9.6831188723444939))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.565801662070058, longitude: 9.6841840445995331))
-        
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.566242922629534, longitude: 9.689328521490097))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564472744304283, longitude: 9.6878050267696381))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564803273506499, longitude: 9.6869681775569916))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564297256208313, longitude: 9.6864961087703705))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.56418139963143, longitude: 9.6868447959423065))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564012725576504, longitude: 9.6866811811923981))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564091099454906, longitude: 9.686458557844162))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.563707747722233, longitude: 9.6860884130001068))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.56424614304774, longitude: 9.684484452009201))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564401186130468, longitude: 9.6846292912960052))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564641416712625, longitude: 9.6840257942676544))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.5655938081741, longitude: 9.6849457919597626))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.565426842905097, longitude: 9.6853964030742645))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.566955064160091, longitude: 9.6870110929012299))
+
         self.universityBlock1 = GMSCoordinateBounds(path: block1Path)
         
-//        let block1Polygon = GMSPolygon(path: block1Path)
-//        block1Polygon.strokeWidth = 7
-//        block1Polygon.strokeColor = UIColor.blue
-//        block1Polygon.map = mapView
-//        self.universityBlock1Vertexs.keys.forEach { vertex in
-//            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
-//        }
+        let block1Polygon = GMSPolygon(path: block1Path)
+        block1Polygon.strokeWidth = 7
+        block1Polygon.strokeColor = UIColor.blue
+        block1Polygon.map = mapView
+        self.universityBlock1Vertexs.keys.forEach { vertex in
+            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
+        }
         
         self.view = mapView
         
