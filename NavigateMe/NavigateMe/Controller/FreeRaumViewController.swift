@@ -29,7 +29,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
 //        print("\nShorttest Path from Gebaude 46(E) entrance 1(main): \(self.shortestPathFromGeb46E)\n")
         
         // temporary purpose
-//        return
+        return
         
         // doing one time image processing for entire application life cycle
         guard IPEngine.floorPlans.isEmpty else {
@@ -53,6 +53,11 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func searchFreeRaums(_ sender: UIButton) {
 
 //        print("\nDate Picker Date: " + searchDateTime.date.description + "\n")
+        
+        if IPEngine.floorPlans.isEmpty {
+            
+            self.startImageProcessor()
+        }
         
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
