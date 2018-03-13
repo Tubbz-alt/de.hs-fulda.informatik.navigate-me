@@ -37,19 +37,22 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         "51(G).1" : CLLocationCoordinate2D(latitude: 50.565043502038826, longitude: 9.6845870465040207),
         "o" : CLLocationCoordinate2D(latitude: 50.565159356496139, longitude: 9.6847784891724586),
         "p" : CLLocationCoordinate2D(latitude: 50.56505351153443, longitude: 9.6850799024105072),
-        "q"
+        "q" : CLLocationCoordinate2D(latitude: 50.565463686057406, longitude: 9.685148298740387),
+        "r" : CLLocationCoordinate2D(latitude: 50.565549724289362, longitude: 9.6849182993173599),
+        "s" : CLLocationCoordinate2D(latitude: 50.565364443743256, longitude: 9.6854192018508911),
+        "46(E).3" : CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265),
+        "t" : CLLocationCoordinate2D(latitude: 50.565205357451632, longitude: 9.6858523786067963),
+        "u" : CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
+        "v" : CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
+        "46(E).2" : CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788),
+        "w" : CLLocationCoordinate2D(latitude: 50.564953842419577, longitude: 9.6865266188979149),
+        "x" : CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
+        "y" : CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
+        "z" : CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
+        "aa" : CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
+        "ab" : CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879)
     ]
     
-    CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
-    CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
-    CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
-    CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
-    CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
-    CLLocationCoordinate2D(latitude: 50.564953842419577, longitude: 9.6865266188979149),
-    CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
-    CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
-    CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788) // gebaude 46(E) entrance 2
-
     // tuple(0 -> raum coordinate, 1 -> dictionary where key -> gebaude entrance coordinate, value -> steps from entrance to raum)
     let raumCoordinates = [
         265 : (
