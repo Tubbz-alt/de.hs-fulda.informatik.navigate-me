@@ -713,7 +713,6 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         block3Path.add(CLLocationCoordinate2D(latitude: 50.564046801191829, longitude: 9.6850235760211945))
         block3Path.add(CLLocationCoordinate2D(latitude: 50.565186616327026, longitude: 9.6860669553279877))
 
-
         let block4Path = GMSMutablePath()
         block4Path.add(CLLocationCoordinate2D(latitude: 50.565186616327026, longitude: 9.6860669553279877))
         block4Path.add(CLLocationCoordinate2D(latitude: 50.564046801191829, longitude: 9.6850235760211945))
@@ -1027,5 +1026,5 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             self.present(abortAlert, animated: true)
         }
     }
-s
+
 }

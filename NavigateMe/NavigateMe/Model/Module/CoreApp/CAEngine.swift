@@ -202,13 +202,13 @@ class CAEngine: RESTServiceDelegate {
 
 //        print("\nData Count: \(s2TGebPlans.count)\n")
         
-        if s2TGebPlans.count == 1 && s2TGebPlans[0].Raum == "Hochschule Fulda, FB AI" &&
-            s2TGebPlans[0].Dozent.isEmpty && s2TGebPlans[0].Gruppe.isEmpty {
+        if s2TGebPlans.count == 1 { //&& s2TGebPlans[0].Raum.contains("Hochschule Fulda") &&
+//            s2TGebPlans[0].Dozent.isEmpty && (s2TGebPlans[0].Gruppe.isEmpty || s2TGebPlans[0].Gruppe.contains("FB AI")) {
             
             print("""
-            No Lecture Plan is found from System2Teach.
-            Reason: \(s2TGebPlans[0].LvaName)
-            """)
+                No Lecture Plan is found from System2Teach.
+                Reason: \(s2TGebPlans[0].LvaName)
+                """)
             self.startProcess()
             return
         }

@@ -26,7 +26,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         print("Start Navigation Engine ...\n")
         self.shortestPathFromGeb46E = NEngine().generateShortestPath(from: "46(E).1")
-        print("\nShorttest Path from Gebaude 46(E) entrance 1(main): \(self.shortestPathFromGeb46E)\n")
+//        print("\nShorttest Path from Gebaude 46(E) entrance 1(main): \(self.shortestPathFromGeb46E)\n")
         
         // temporary purpose
         return
