@@ -33,8 +33,6 @@ class IPEngine {
         let gebTag = geb.sumOfAsciiValues()
         
         [0, 1, 3].forEach { floor in
-        
-//            print("\nImage Processing of floor: \(floor)\n")
             
             // tag = geb tag + floor number + raum number (added in ViewController during button creation)
             let buttonTag = gebTag + floor
@@ -68,9 +66,7 @@ class IPEngine {
             
             i += 1
             
-//            print("Text Rect \(i): Before Rect Increase: \(textFeature.bounds)\n")
             let textRect = textFeature.bounds.insetBy(dx: CGFloat(-5), dy: CGFloat(-5))
-//            print("Text Rect \(i): After Rect Increase: \(textRect)\n")
             
             if let tesseract = G8Tesseract(language: "eng") {
                 
@@ -82,16 +78,11 @@ class IPEngine {
                 tesseract.image = image.g8_blackAndWhite()
                 tesseract.recognize()
                 let ocrText = tesseract.recognizedText.trimmingCharacters(in: .whitespacesAndNewlines)
-//                print("Image \(i): OCR Result: " + ocrText + "\n")
                 
                 guard let raum = Int(ocrText) else {
                 
                     continue
                 }
-                
-//                print("Image \(i): Rect Origin (X,Y): (\(textRect.origin.x), \(textRect.origin.y))\n")
-//                print("Image \(i): Rect Min (X,Y): (\(textRect.minX), \(textRect.minY))\n")
-//                print("Image \(i): Rect Max (X,Y): (\(textRect.maxX), \(textRect.maxY))\n")
                 
                 let buttonOrigin = CGPoint(x: textRect.origin.x, y: textRect.maxY)
                 let translationX = CGFloat(0)
