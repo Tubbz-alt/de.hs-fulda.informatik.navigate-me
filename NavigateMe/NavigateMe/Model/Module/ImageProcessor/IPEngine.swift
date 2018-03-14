@@ -30,7 +30,7 @@ class IPEngine {
         let geb = "46(E)"
         
         // geb int value = sum of ascii values of geb nummer charectars
-        let gebTag = geb.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) })
+        let gebTag = geb.sumOfAsciiValues()
         
         [0, 1, 3].forEach { floor in
         

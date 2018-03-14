@@ -1,62 +1,62 @@
 //
-//  GoogleDirectionService.swift
+//  GoogleDistanceService.swift
 //  NavigateMe
 //
-//  Created by mahbub on 2/27/18.
+//  Created by mahbub on 3/7/18.
 //  Copyright © 2018 Fulda University Of Applied Sciences. All rights reserved.
 //
 
 import Foundation
 import CoreLocation
 
-class GoogleDirectionService: RESTService {
+class GoogleDistanceService: RESTService {
     
     static private let networkProtocol = "https"
     static private let host = "maps.googleapis.com"
     
     init() {
         
-        super.init(with: GoogleDirectionService.networkProtocol, host: GoogleDirectionService.host)
+        super.init(with: GoogleDistanceService.networkProtocol, host: GoogleDistanceService.host)
     }
     
     override func callbackAfterCompletion(data: Data?, response: URLResponse?, error: Error?) {
         
         if error != nil {
             
-            print("Response Error [GoogleDirectionService.swift]: \(error!.localizedDescription)")
+            print("Response Error [GoogleDistanceService.swift]: \(error!.localizedDescription)")
             self.delegate?.dataDidFail(reason: "Invalid Response from Google Map API.")
             return
         }
         
         guard let data = data else {
             
-            print("Response Error [GoogleDirectionService.swift]: No Data is Found.")
+            print("Response Error [GoogleDistanceService.swift]: No Data is Found.")
             self.delegate?.dataDidFail(reason: "Invalid Response from Google Map API.")
             return
         }
         
         do {
             
-            let googleDirection = try JSONDecoder().decode(GoogleDirection.self, from: data)
-            self.delegate?.dataDidReceive(data: googleDirection)
+            let googleDistance = try JSONDecoder().decode(GoogleDistance.self, from: data)
+            self.delegate?.dataDidReceive(data: googleDistance)
             
         } catch let jsonError {
             
-            print("JSON Error [GoogleDirectionService.swift]: \(jsonError)")
+            print("JSON Error [GoogleDistanceService.swift]: \(jsonError)")
             self.delegate?.dataDidFail(reason: "Unable to decode JSON message from Google Map API.")
         }
     }
     
-    func get(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
+    func get(origins: [CLLocationCoordinate2D], destinations: [CLLocationCoordinate2D]) {
         
         var query = [String : String?]()
-        
-        query["origin"] = "\(origin.latitude),\(origin.longitude)"
-        query["destination"] = "\(destination.latitude),\(destination.longitude)"
+
+        query["origins"] = origins.map({ "\($0.latitude),\($0.longitude)" }).joined(separator: "|")
+        query["destinations"] = destinations.map({ "\($0.latitude),\($0.longitude)" }).joined(separator: "|")
         query["key"] = "AIzaSyBuAEEsoOT1Pgy2rcvjwM9veaao85Yio5A"
         query["mode"] = "walking"
         
-        let requestUrl = "/maps/api/directions/json"
+        let requestUrl = "/maps/api/distancematrix/json"
         let url = self.generateURL(using: requestUrl, query: query)
         
         self.processGET(for: url)

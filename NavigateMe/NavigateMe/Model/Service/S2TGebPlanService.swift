@@ -23,13 +23,15 @@ class S2TGebPlanService: RESTService {
         
         if error != nil {
             
-            print("Response Error: \(error!.localizedDescription)")
+            print("Response Error [S2TGebPlanService.swift]: \(error!.localizedDescription)")
+            self.delegate?.dataDidFail(reason: "Invalid Response from System2Teach.")
             return
         }
         
         guard let data = data else {
             
-            print("Response Data: No Data is Found.")
+            print("Response Error [S2TGebPlanService.swift]: No Data is Found.")
+            self.delegate?.dataDidFail(reason: "Invalid Response from System2Teach.")
             return
         }
         
@@ -40,7 +42,8 @@ class S2TGebPlanService: RESTService {
             
         } catch let jsonError {
             
-            print("JSON Error:\(jsonError)")
+            print("JSON Error [S2TGebPlanService.swift]: \(jsonError)")
+            self.delegate?.dataDidFail(reason: "Unable to decode JSON message from System2Teach.")
         }
     }
     
@@ -48,7 +51,8 @@ class S2TGebPlanService: RESTService {
         
         guard !gebs.isEmpty else {
             
-            print("Service Error: Geb list is Empty.")
+            print("Service Error [S2TGebPlanService.swift]: Geb list is Empty.")
+            self.delegate?.dataDidFail(reason: "Invalid Request to System2Teach.")
             return
         }
         
@@ -60,7 +64,6 @@ class S2TGebPlanService: RESTService {
         
         let requestUrl = "/hfg/rest/st/getGebPlan/" + gebs.joined(separator: ",") + "/"
         let url = self.generateURL(using: requestUrl, query: query)
-        
         self.processGET(for: url)
     }
     

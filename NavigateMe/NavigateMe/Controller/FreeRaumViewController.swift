@@ -18,15 +18,19 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var searchDateTime: UIDatePicker!
     @IBOutlet weak var gebCollectionView: UICollectionView!
 
-    override func viewDidLoad() {
-
-        super.viewDidLoad()
+    var shortestPathFromGeb46E = [String : (distance: Int, parent: String?)]()
+    
+    override func loadView() {
         
-        app.delegate = self
+        super.loadView()
         
-        gebCollectionView.delegate = self
-        gebCollectionView.dataSource = self
-
+        print("Start Navigation Engine ...\n")
+        self.shortestPathFromGeb46E = NEngine().generateShortestPath(from: "46(E).1")
+        print("\nShorttest Path from Gebaude 46(E) entrance 1(main): \(self.shortestPathFromGeb46E)\n")
+        
+        // temporary purpose
+        return
+        
         // doing one time image processing for entire application life cycle
         guard IPEngine.floorPlans.isEmpty else {
             
@@ -36,13 +40,37 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.startImageProcessor()
     }
     
+    override func viewDidLoad() {
+
+        super.viewDidLoad()
+        
+        app.delegate = self
+        
+        gebCollectionView.delegate = self
+        gebCollectionView.dataSource = self
+    }
+    
     @IBAction func searchFreeRaums(_ sender: UIButton) {
 
 //        print("\nDate Picker Date: " + searchDateTime.date.description + "\n")
         
+        if IPEngine.floorPlans.isEmpty {
+
+            self.startImageProcessor()
+        }
+
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
         app.searchFreeRaums()
+        
+//        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
+//        googleMapViewController.geb = "46(E)"
+//        googleMapViewController.floor = 0
+//        googleMapViewController.raum = 35
+//        googleMapViewController.duration = "03:35"
+//        googleMapViewController.shortestPathFromGeb46E = self.shortestPathFromGeb46E
+//
+//        self.navigationController!.pushViewController(googleMapViewController, animated: true)
     }
     
     @IBAction func navigateMeInThisRaum(_ sender: UIButton) {
@@ -52,7 +80,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         for geb in self.freeRaums {
             
-            let gebNummerMitLetter = geb.key.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) })
+            let gebNummerMitLetter = geb.key.sumOfAsciiValues()
             let floor = geb.value.filter({ floorTag  == (gebNummerMitLetter + $0.key) })
             
             guard !floor.isEmpty else {
@@ -80,8 +108,13 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GebCell", for: indexPath) as! GebCollectionViewCell
         
-//        print("\nCell\(indexPath): \(cell)\n")
-//        print("Cell\(indexPath) Subviews: \(cell.subviews)\n")
+        cell.subviews.forEach { subview in
+            
+            if let raumButton = subview as? UIButton {
+                
+                raumButton.removeFromSuperview()
+            }
+        }
         
         guard let floors = self.freeRaums["46(E)"] else {
             
@@ -89,7 +122,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         let geb = "46(E)"
-        let gebNummerMitLetter = geb.utf8.reduce(0, { result, codeUnit in result + Int(codeUnit) })
+        let gebNummerMitLetter = geb.sumOfAsciiValues()
         
         for (index, floor) in floors.keys.enumerated() {
 
@@ -134,6 +167,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
             googleMapViewController.floor = freeRaum.floor
             googleMapViewController.raum = freeRaum.raum
             googleMapViewController.duration = freeRaum.duration
+            googleMapViewController.shortestPathFromGeb46E = self.shortestPathFromGeb46E
             
             self.navigationController!.pushViewController(googleMapViewController, animated: true)
         }
@@ -186,26 +220,9 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func startImageProcessor() {
         
-//        print("After View Loading ...\n")
-//        print("Start Image Processor ...\n")
+        print("Start Image Processor Engine ...\n")
         
-        let widthDiffBetweenCollectionViewAndCell = CGFloat(45)
-        let widthDiffBetweenCellAndImageFrame = CGFloat(40)
-        
-        let heightDiffBetweenCollectionViewAndCell = CGFloat(178)
-        let heightDiffBetweenCellAndImageFrame = CGFloat(83)
-        
-        let imageFrameWidth = self.gebCollectionView.frame.width - (widthDiffBetweenCollectionViewAndCell + widthDiffBetweenCellAndImageFrame)
-        let imageFrameHeight = self.gebCollectionView.frame.height - (heightDiffBetweenCollectionViewAndCell + heightDiffBetweenCellAndImageFrame)
-        
-//        let cellFrameWidth = self.gebCollectionView.frame.width - widthDiffBetweenCollectionViewAndCell
-//        let cellFrameHeight = self.gebCollectionView.frame.height - heightDiffBetweenCollectionViewAndCell
-
-        let imageFrame = CGRect(x: CGFloat(20), y: CGFloat(62), width: imageFrameWidth, height: imageFrameHeight)
-//        let cellFrame = CGRect(x: CGFloat(0), y: CGFloat(89), width: cellFrameWidth, height: cellFrameHeight)
-
-        IPEngine.imageViewFrame = imageFrame
-//        ImageProcessor.parentViewFrames = [cellFrame, self.gebCollectionView.frame]
+        IPEngine.imageViewFrame = CGRect(x: CGFloat(20), y: CGFloat(62), width: CGFloat(643), height: CGFloat(356))
         IPEngine.processImage()
         
         self.generateFreeRaumButtons()

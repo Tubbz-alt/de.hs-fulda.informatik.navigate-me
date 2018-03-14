@@ -195,18 +195,29 @@ class CAEngine: RESTServiceDelegate {
         guard let s2TGebPlans = data as? [S2TGebPlan],
             !s2TGebPlans.isEmpty else {
             
-            print("No Geb Plan is found from System2Teach.")
+            print("No Lecture Plan is found from System2Teach.")
             self.delegate?.processDidAbort(reason: "University is Closed.")
             return
         }
+
+//        print("\nData Count: \(s2TGebPlans.count)\n")
         
+        if s2TGebPlans.count == 1 && s2TGebPlans[0].Raum == "Hochschule Fulda, FB AI" &&
+            s2TGebPlans[0].Dozent.isEmpty && s2TGebPlans[0].Gruppe.isEmpty {
+            
+            print("""
+            No Lecture Plan is found from System2Teach.
+            Reason: \(s2TGebPlans[0].LvaName)
+            """)
+            self.startProcess()
+            return
+        }
+
 //        print("\nInitial values of Decision Tree:\n")
 //        print("\(self.department)")
         
         var gebRaums = [Substring](), mappedIndices = [Int](), beginn: Date? = nil, ende: Date? = nil, raumFromS2T: String? = nil, isScheduleAppended = false
     
-//        print("\nData: \(s2TGebPlans.count)\n")
-        
         for gebPlan in s2TGebPlans {
             
             gebRaums = gebPlan.Raum.split(separator: "/")
@@ -215,6 +226,12 @@ class CAEngine: RESTServiceDelegate {
             
             beginn = Date.millisecondToDate(Double(gebPlan.Beginn))
             ende = Date.millisecondToDate(Double(gebPlan.Ende))
+
+//            print("Raum: " + gebPlan.Raum)
+//            print("Beginn in millisecond: \(gebPlan.Beginn)")
+//            print("Beginn: \(beginn)")
+//            print("Ende in millisecond: \(gebPlan.Ende)")
+//            print("Ende: \(ende)\n")
             
             guard beginn!.onlyDateEqual(to: self.search!),
                 ende!.onlyDateEqual(to: self.search!) else {
@@ -223,12 +240,6 @@ class CAEngine: RESTServiceDelegate {
                     self.delegate?.processDidAbort(reason: "System2Teach dates are not matched with search date.")
                     return
             }
-            
-//            print("Raum: " + gebPlan.Raum)
-//            print("Beginn in millisecond: \(gebPlan.Beginn)")
-//            print("Beginn: \(beginn)")
-//            print("Ende in millisecond: \(gebPlan.Ende)")
-//            print("Ende: \(ende)\n")
             
             if mapWithS2T.keys.contains(raumFromS2T!) {
             
@@ -271,13 +282,13 @@ class CAEngine: RESTServiceDelegate {
             }
         }
         
-        let recordCount = department.gebs[0].floors.reduce(0, { (result, floor) in
-
-            result + floor.raums.reduce(0, { (result, raum) in
-                
-                result + raum.schedules.count
-            })
-        })
+//        let recordCount = department.gebs[0].floors.reduce(0, { (result, floor) in
+//
+//            result + floor.raums.reduce(0, { (result, raum) in
+//
+//                result + raum.schedules.count
+//            })
+//        })
         
 //        print("\nRecord Count: \(recordCount)\n")
         
@@ -291,6 +302,11 @@ class CAEngine: RESTServiceDelegate {
 //        }
         
         startProcess()
+    }
+    
+    func dataDidFail(reason message: String) {
+        
+        self.delegate?.processDidAbort(reason: message)
     }
     
     func searchFreeRaums() {

@@ -12,4 +12,6 @@ protocol RESTServiceDelegate {
     
     func dataDidReceive(data: Any)
     
+    func dataDidFail(reason message: String)
+    
 }

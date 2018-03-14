@@ -59,7 +59,8 @@ class RESTService {
         
         guard let url = url else {
             
-            print("Invalid URL String")
+            print("Service Error [RESTService.swift]: Invalid URL String.")
+            self.delegate?.dataDidFail(reason: "Invalid Request.")
             return
         }
         
