@@ -175,9 +175,7 @@ class CAEngine: RESTServiceDelegate {
             return
         }
         
-        if s2TGebPlans.count == 1 && s2TGebPlans[0].Raum.contains("Hochschule Fulda") &&
-            s2TGebPlans[0].Dozent.isEmpty && (s2TGebPlans[0].Gruppe.isEmpty || s2TGebPlans[0].Gruppe.contains("FB AI")) {
-            
+        if s2TGebPlans.count == 1 {            
             print("""
             No Lecture Plan is found from System2Teach.
             Reason: \(s2TGebPlans[0].LvaName)
