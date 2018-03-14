@@ -18,16 +18,63 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     let floorIntValues = [0, 1, 3]
     
     let universityBlock1Vertexs = [
-        "46(E).1" : CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977),
-        "a" : CLLocationCoordinate2D(latitude: 50.564930841824669, longitude: 9.6854161843657494),
+        "x" : CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
+        "y" : CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
+        "z" : CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
+        "aa" : CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
+        "ab" : CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
+        "ac" : CLLocationCoordinate2D(latitude: 50.564540894844988, longitude: 9.6879445016384125),
+        "ah" : CLLocationCoordinate2D(latitude: 50.565145726574762, longitude: 9.6870405972003937),
+        "Bibliothek.1" : CLLocationCoordinate2D(latitude: 50.565097169947862, longitude: 9.6871921420097351),
+        "ai" : CLLocationCoordinate2D(latitude: 50.565344211915345, longitude: 9.6871867775917053),
+        "Bibliothek.2" : CLLocationCoordinate2D(latitude: 50.565301618565094, longitude: 9.6873342990875244),
+        "aj" : CLLocationCoordinate2D(latitude: 50.565583585827689, longitude: 9.6873638033866882),
+        "al" : CLLocationCoordinate2D(latitude: 50.566055515174732, longitude: 9.6877916157245636),
+        "am" : CLLocationCoordinate2D(latitude: 50.566098959696497, longitude: 9.6887243539094925),
+        "21(P).1" : CLLocationCoordinate2D(latitude: 50.566053811467178, longitude: 9.6888530999422073),
+        "an" : CLLocationCoordinate2D(latitude: 50.565839143822565, longitude: 9.6885151416063309),
+        "ao" : CLLocationCoordinate2D(latitude: 50.565550789117978, longitude: 9.6882522851228714),
+        "20(O).1" : CLLocationCoordinate2D(latitude: 50.565517566453728, longitude: 9.6883635967969894),
+        "ap" : CLLocationCoordinate2D(latitude: 50.565032853636914, longitude: 9.6877668052911758),
+        "19(N).1" : CLLocationCoordinate2D(latitude: 50.564976630034948, longitude: 9.6878968924283981)
+    ]
+    
+    let universityBlock2Vertexs = [
+        "ad" : CLLocationCoordinate2D(latitude: 50.565917514663312, longitude: 9.6864210069179535),
+        "ae" : CLLocationCoordinate2D(latitude: 50.565793143485777, longitude: 9.6867254376411438),
+        "Mensa.1" : CLLocationCoordinate2D(latitude: 50.565874069974221, longitude: 9.686771035194397),
+        "af" : CLLocationCoordinate2D(latitude: 50.565561437402849, longitude: 9.6865792572498322),
+        "SSC.1" : CLLocationCoordinate2D(latitude: 50.565619364030404, longitude: 9.6864263713359833),
+        "ag" : CLLocationCoordinate2D(latitude: 50.565324618979012, longitude: 9.6864505112171173),
+        "ak" : CLLocationCoordinate2D(latitude: 50.56571051313837, longitude: 9.6870097517967224),
+        "Mensa.2" : CLLocationCoordinate2D(latitude: 50.565761624710575, longitude: 9.6870513260364532)
+    ]
+    
+    let universityBlock3Vertexs = [
         "b" : CLLocationCoordinate2D(latitude: 50.564727669415412, longitude: 9.6859190985560417),
         "c" : CLLocationCoordinate2D(latitude: 50.564386278163909, longitude: 9.6856210380792618),
+        "h" : CLLocationCoordinate2D(latitude: 50.564090034593292, longitude: 9.6853632107377052),
+        "i" : CLLocationCoordinate2D(latitude: 50.563978862909359, longitude: 9.6852653101086617),
+        "u" : CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
+        "v" : CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
+        "46(E).2" : CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788),
+        "w" : CLLocationCoordinate2D(latitude: 50.564953842419577, longitude: 9.6865266188979149),
+        "aq" : CLLocationCoordinate2D(latitude: 50.564592007685846, longitude: 9.6862895786762238),
+        "33(M).1" : CLLocationCoordinate2D(latitude: 50.564525560981927, longitude: 9.6864746510982513),
+        "ar" : CLLocationCoordinate2D(latitude: 50.564331331617872, longitude: 9.6860294044017792),
+        "33(M).2" : CLLocationCoordinate2D(latitude: 50.564203548704931, longitude: 9.6865363419055939),
+        "as" : CLLocationCoordinate2D(latitude: 50.564111544793043, longitude: 9.6858443319797516),
+        "33(M).3" : CLLocationCoordinate2D(latitude: 50.564053616311938, longitude: 9.6860320866107941),
+        "at" : CLLocationCoordinate2D(latitude: 50.564440372762924, longitude: 9.685683399438858)
+    ]
+    
+    let universityBlock4Vertexs = [
+        "46(E).1" : CLLocationCoordinate2D(latitude: 50.56500942714424, longitude: 9.6854879334568977),
+        "a" : CLLocationCoordinate2D(latitude: 50.564930841824669, longitude: 9.6854161843657494),
         "d" : CLLocationCoordinate2D(latitude: 50.564578803540599, longitude: 9.6850886195898056),
         "e" : CLLocationCoordinate2D(latitude: 50.564451873181468, longitude: 9.6849659085273743),
         "f" : CLLocationCoordinate2D(latitude: 50.564402676926854, longitude: 9.684707410633564),
         "g" : CLLocationCoordinate2D(latitude: 50.564216539983569, longitude: 9.6845464780926704),
-        "h" : CLLocationCoordinate2D(latitude: 50.564090034593292, longitude: 9.6853632107377052),
-        "i" : CLLocationCoordinate2D(latitude: 50.563978862909359, longitude: 9.6852653101086617),
         "j" : CLLocationCoordinate2D(latitude: 50.564565599391628, longitude: 9.684629961848259),
         "k" : CLLocationCoordinate2D(latitude: 50.564856089813674, longitude: 9.6848861128091812),
         "l" : CLLocationCoordinate2D(latitude: 50.56493595306894, longitude: 9.6846792474389076),
@@ -41,46 +88,10 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         "r" : CLLocationCoordinate2D(latitude: 50.565549724289362, longitude: 9.6849182993173599),
         "s" : CLLocationCoordinate2D(latitude: 50.565364443743256, longitude: 9.6854192018508911),
         "46(E).3" : CLLocationCoordinate2D(latitude: 50.565264988253055, longitude: 9.6853310242295265),
-        "t" : CLLocationCoordinate2D(latitude: 50.565205357451632, longitude: 9.6858523786067963),
-        "u" : CLLocationCoordinate2D(latitude: 50.565069800000003, longitude: 9.6862168000000004),
-        "v" : CLLocationCoordinate2D(latitude: 50.564897192785949, longitude: 9.6860646083950996),
-        "46(E).2" : CLLocationCoordinate2D(latitude: 50.5649281, longitude: 9.6859788),
-        "w" : CLLocationCoordinate2D(latitude: 50.564953842419577, longitude: 9.6865266188979149),
-        "x" : CLLocationCoordinate2D(latitude: 50.565014751348144, longitude: 9.6866587176918983),
-        "y" : CLLocationCoordinate2D(latitude: 50.565026464594624, longitude: 9.6867502480745316),
-        "z" : CLLocationCoordinate2D(latitude: 50.564791347235399, longitude: 9.6874083951115608),
-        "aa" : CLLocationCoordinate2D(latitude: 50.564799227093438, longitude: 9.6874818205833435),
-        "ab" : CLLocationCoordinate2D(latitude: 50.564700196349428, longitude: 9.6875123307108879),
-        "ac" : CLLocationCoordinate2D(latitude: 50.56455793246478, longitude: 9.6879015862941742),
-        "ad" : CLLocationCoordinate2D(latitude: 50.565917514663312, longitude: 9.6864210069179535),
-        "ae" : CLLocationCoordinate2D(latitude: 50.565793143485777, longitude: 9.6867254376411438),
-        "Mensa.1" : CLLocationCoordinate2D(latitude: 50.565874069974221, longitude: 9.686771035194397),
-        "af" : CLLocationCoordinate2D(latitude: 50.565561437402849, longitude: 9.6865792572498322),
-        "SSC.1" : CLLocationCoordinate2D(latitude: 50.565619364030404, longitude: 9.6864263713359833),
-        "ag" : CLLocationCoordinate2D(latitude: 50.565324618979012, longitude: 9.6864505112171173),
-        "ah" : CLLocationCoordinate2D(latitude: 50.565145726574762, longitude: 9.6870405972003937),
-        "Bibliothek.1" : CLLocationCoordinate2D(latitude: 50.565097169947862, longitude: 9.6871921420097351),
-        "ai" : CLLocationCoordinate2D(latitude: 50.565344211915345, longitude: 9.6871867775917053),
-        "Bibliothek.2" : CLLocationCoordinate2D(latitude: 50.565301618565094, longitude: 9.6873342990875244),
-        "aj" : CLLocationCoordinate2D(latitude: 50.565583585827689, longitude: 9.6873638033866882),
-        "ak" : CLLocationCoordinate2D(latitude: 50.56571051313837, longitude: 9.6870097517967224),
-        "Mensa.2" : CLLocationCoordinate2D(latitude: 50.565761624710575, longitude: 9.6870513260364532),
-        "al" : CLLocationCoordinate2D(latitude: 50.566055515174732, longitude: 9.6877916157245636),
-        "am" : CLLocationCoordinate2D(latitude: 50.566098959696497, longitude: 9.6887243539094925),
-        "21(P).1" : CLLocationCoordinate2D(latitude: 50.566053811467178, longitude: 9.6888530999422073),
-        "an" : CLLocationCoordinate2D(latitude: 50.565839143822565, longitude: 9.6885151416063309),
-        "ao" : CLLocationCoordinate2D(latitude: 50.565550789117978, longitude: 9.6882522851228714),
-        "20(O).1" : CLLocationCoordinate2D(latitude: 50.565517566453728, longitude: 9.6883635967969894),
-        "ap" : CLLocationCoordinate2D(latitude: 50.565032853636914, longitude: 9.6877668052911758),
-        "19(N).1" : CLLocationCoordinate2D(latitude: 50.564976630034948, longitude: 9.6878968924283981),
-        "aq" : CLLocationCoordinate2D(latitude: 50.564592007685846, longitude: 9.6862895786762238),
-        "33(M).1" : CLLocationCoordinate2D(latitude: 50.564525560981927, longitude: 9.6864746510982513),
-        "ar" : CLLocationCoordinate2D(latitude: 50.564331331617872, longitude: 9.6860294044017792),
-        "33(M).2" : CLLocationCoordinate2D(latitude: 50.564203548704931, longitude: 9.6865363419055939),
-        "as" : CLLocationCoordinate2D(latitude: 50.564111544793043, longitude: 9.6858443319797516),
-        "33(M).3" : CLLocationCoordinate2D(latitude: 50.564053616311938, longitude: 9.6860320866107941),
-        "at" : CLLocationCoordinate2D(latitude: 50.564440372762924, longitude: 9.685683399438858)
+        "t" : CLLocationCoordinate2D(latitude: 50.565205357451632, longitude: 9.6858523786067963)
     ]
+    
+    var universityBlockVertexs = [String : CLLocationCoordinate2D]()
     
     // tuple(0 -> raum coordinate, 1 -> dictionary where key -> gebaude entrance coordinate, value -> steps from entrance to raum)
     let raumCoordinates = [
@@ -654,13 +665,16 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     var floorOverlay: GMSGroundOverlay? = nil
     var routePolylines = [GMSPolyline]()
     var universityBlock1: GMSCoordinateBounds? = nil
+    var universityBlock2: GMSCoordinateBounds? = nil
+    var universityBlock3: GMSCoordinateBounds? = nil
+    var universityBlock4: GMSCoordinateBounds? = nil
     var shortestPathFromGeb46E = [String : (distance: Int, parent: String?)]()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
-        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 20) // 18
+        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 18) // 20
         
         let mapView = GMSMapView.map(withFrame: .zero, camera: cameraPostion)
         mapView.delegate = self
@@ -679,27 +693,66 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     
         let block1Path = GMSMutablePath()
         block1Path.add(CLLocationCoordinate2D(latitude: 50.566242922629534, longitude: 9.689328521490097))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564472744304283, longitude: 9.6878050267696381))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564803273506499, longitude: 9.6869681775569916))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564297256208313, longitude: 9.6864961087703705))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.56418139963143, longitude: 9.6868447959423065))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564012725576504, longitude: 9.6866811811923981))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564091099454906, longitude: 9.686458557844162))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.563707747722233, longitude: 9.6860884130001068))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.56424614304774, longitude: 9.684484452009201))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564401186130468, longitude: 9.6846292912960052))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.564641416712625, longitude: 9.6840257942676544))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.5655938081741, longitude: 9.6849457919597626))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.565426842905097, longitude: 9.6853964030742645))
-        block1Path.add(CLLocationCoordinate2D(latitude: 50.566955064160091, longitude: 9.6870110929012299))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564482753921119, longitude: 9.6877487003803253))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.564978759718052, longitude: 9.6865873038768768))
+        block1Path.add(CLLocationCoordinate2D(latitude: 50.56658025416985, longitude: 9.6882234513759613))
+
+        let block2Path = GMSMutablePath()
+        block2Path.add(CLLocationCoordinate2D(latitude: 50.56658025416985, longitude: 9.6882234513759613))
+        block2Path.add(CLLocationCoordinate2D(latitude: 50.564978759718052, longitude: 9.6865873038768768))
+        block2Path.add(CLLocationCoordinate2D(latitude: 50.565426842905097, longitude: 9.6854017674922943))
+        block2Path.add(CLLocationCoordinate2D(latitude: 50.566934620055676, longitude: 9.6870271861553192))
+        
+        let block3Path = GMSMutablePath()
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.564812005238785, longitude: 9.6869882941246033))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.564297256208313, longitude: 9.6864961087703705))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.56418139963143, longitude: 9.6868447959423065))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.564012725576504, longitude: 9.6866811811923981))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.564091099454906, longitude: 9.686458557844162))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.563707747722233, longitude: 9.6860884130001068))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.564046801191829, longitude: 9.6850235760211945))
+        block3Path.add(CLLocationCoordinate2D(latitude: 50.565186616327026, longitude: 9.6860669553279877))
+
+
+        let block4Path = GMSMutablePath()
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.565186616327026, longitude: 9.6860669553279877))
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.564046801191829, longitude: 9.6850235760211945))
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.56424614304774, longitude: 9.684484452009201))
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.564401186130468, longitude: 9.6846292912960052))
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.564641416712625, longitude: 9.6840257942676544))
+        block4Path.add(CLLocationCoordinate2D(latitude: 50.5655938081741, longitude: 9.6849457919597626))
 
         self.universityBlock1 = GMSCoordinateBounds(path: block1Path)
+        self.universityBlock2 = GMSCoordinateBounds(path: block2Path)
+        self.universityBlock3 = GMSCoordinateBounds(path: block3Path)
+        self.universityBlock4 = GMSCoordinateBounds(path: block4Path)
         
-//        let block1Polygon = GMSPolygon(path: block1Path)
-//        block1Polygon.strokeWidth = 7
-//        block1Polygon.strokeColor = UIColor.blue
-//        block1Polygon.map = mapView
-//        self.universityBlock1Vertexs.keys.forEach { vertex in
+        self.universityBlockVertexs.merge(self.universityBlock1Vertexs, uniquingKeysWith: { _, new in new })
+        self.universityBlockVertexs.merge(self.universityBlock2Vertexs, uniquingKeysWith: { _, new in new })
+        self.universityBlockVertexs.merge(self.universityBlock3Vertexs, uniquingKeysWith: { _, new in new })
+        self.universityBlockVertexs.merge(self.universityBlock4Vertexs, uniquingKeysWith: { _, new in new })
+        
+        let block1Polygon = GMSPolygon(path: block1Path)
+        block1Polygon.strokeWidth = 7
+        block1Polygon.strokeColor = UIColor.blue
+        block1Polygon.map = mapView
+        
+        let block2Polygon = GMSPolygon(path: block2Path)
+        block2Polygon.strokeWidth = 7
+        block2Polygon.strokeColor = UIColor.purple
+        block2Polygon.map = mapView
+        
+        let block3Polygon = GMSPolygon(path: block3Path)
+        block3Polygon.strokeWidth = 7
+        block3Polygon.strokeColor = UIColor.orange
+        block3Polygon.map = mapView
+        
+        let block4Polygon = GMSPolygon(path: block4Path)
+        block4Polygon.strokeWidth = 7
+        block4Polygon.strokeColor = UIColor.magenta
+        block4Polygon.map = mapView
+        
+//        self.universityBlockVertexs.keys.forEach { vertex in
 //            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
 //        }
         
@@ -727,14 +780,14 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         var vertex = destination
         
         let shortestPath = GMSMutablePath()
-        shortestPath.add(self.universityBlock1Vertexs[vertex]!)
+        shortestPath.add(self.universityBlockVertexs[vertex]!)
         
         var counter = 1
         
         while(self.shortestPathFromGeb46E[vertex]!.parent != nil) {
             
             vertex = self.shortestPathFromGeb46E[vertex]!.parent!
-            shortestPath.add(self.universityBlock1Vertexs[vertex]!)
+            shortestPath.add(self.universityBlockVertexs[vertex]!)
             
             counter += 1
         }
@@ -775,9 +828,29 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.routePolylines.removeAll()
         
         let origin = currentLocation.coordinate
-        let insideUniversityArea = self.universityBlock1!.contains(origin)
-        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-                                                : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+        var insideUniversityArea = false
+        var destinations = self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+        
+        if self.universityBlock1!.contains(origin) {
+            
+            insideUniversityArea = true
+            destinations = self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+            
+        } else if self.universityBlock2!.contains(origin) {
+            
+            insideUniversityArea = true
+            destinations = self.universityBlock2Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+            
+        } else if self.universityBlock3!.contains(origin) {
+            
+            insideUniversityArea = true
+            destinations = self.universityBlock3Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+            
+        } else if self.universityBlock4!.contains(origin) {
+            
+            insideUniversityArea = true
+            destinations = self.universityBlock4Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+        }
         
         self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: destinations, insideUniversityArea: insideUniversityArea)
     }
@@ -785,7 +858,6 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 //    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
 //
 //        print("\nTap At: \(coordinate)")
-//        print("Within university block 1: \(self.universityBlock1!.contains(coordinate))\n")
 //
 //        let tapMarker = GMSMarker(position: coordinate)
 //        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
@@ -794,9 +866,33 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 //        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
 //        self.routePolylines.removeAll()
 //
-//        let insideUniversityArea = self.universityBlock1!.contains(coordinate)
-//        let destinations = insideUniversityArea ? self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-//            : self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+//        var insideUniversityArea = false
+//        var destinations = self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+//
+//        if self.universityBlock1!.contains(coordinate) {
+//
+//            print("Within university block 1: true\n")
+//            insideUniversityArea = true
+//            destinations = self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+//
+//        } else if self.universityBlock2!.contains(coordinate) {
+//
+//            print("Within university block 2: true\n")
+//            insideUniversityArea = true
+//            destinations = self.universityBlock2Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+//
+//        } else if self.universityBlock3!.contains(coordinate) {
+//
+//            print("Within university block 3: true\n")
+//            insideUniversityArea = true
+//            destinations = self.universityBlock3Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+//
+//        } else if self.universityBlock4!.contains(coordinate) {
+//
+//            print("Within university block 4: true\n")
+//            insideUniversityArea = true
+//            destinations = self.universityBlock4Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+//        }
 //
 //        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
 //    }
@@ -807,7 +903,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         DispatchQueue.main.async {
             
             let mapView = self.view as! GMSMapView
-            let nearestVertex = self.universityBlock1Vertexs.filter({ $0.value == nearestCoordinate }).first!.key
+            let nearestVertex = self.universityBlockVertexs.filter({ $0.value == nearestCoordinate }).first!.key
             
             self.drawShortestPathOnMap(destination: nearestVertex, mapView: mapView)
             
@@ -931,5 +1027,5 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             self.present(abortAlert, animated: true)
         }
     }
-    
+s
 }

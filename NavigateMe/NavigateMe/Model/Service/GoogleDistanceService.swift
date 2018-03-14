@@ -53,7 +53,7 @@ class GoogleDistanceService: RESTService {
 
         query["origins"] = origins.map({ "\($0.latitude),\($0.longitude)" }).joined(separator: "|")
         query["destinations"] = destinations.map({ "\($0.latitude),\($0.longitude)" }).joined(separator: "|")
-        query["key"] = "AIzaSyA5WKLZCTreqWGGVNdeucTzqCgsLfEf8CU"
+        query["key"] = "AIzaSyBuAEEsoOT1Pgy2rcvjwM9veaao85Yio5A"
         query["mode"] = "walking"
         
         let requestUrl = "/maps/api/distancematrix/json"

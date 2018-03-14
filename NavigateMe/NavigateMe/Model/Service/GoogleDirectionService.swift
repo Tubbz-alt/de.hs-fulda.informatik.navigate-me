@@ -53,7 +53,7 @@ class GoogleDirectionService: RESTService {
         
         query["origin"] = "\(origin.latitude),\(origin.longitude)"
         query["destination"] = "\(destination.latitude),\(destination.longitude)"
-        query["key"] = "AIzaSyA5WKLZCTreqWGGVNdeucTzqCgsLfEf8CU"
+        query["key"] = "AIzaSyBuAEEsoOT1Pgy2rcvjwM9veaao85Yio5A"
         query["mode"] = "walking"
         
         let requestUrl = "/maps/api/directions/json"
