@@ -281,6 +281,8 @@ class NEngine: RESTServiceDelegate {
         
         let elements = distance.rows.flatMap({ $0.elements })
         
+//        print("\nDistance Elements: \(distance)\n")
+        
         var minIndex = 0
         var minElement = elements[0]
         
@@ -292,6 +294,10 @@ class NEngine: RESTServiceDelegate {
                 minIndex = index
             }
         }
+        
+//        print("\nMin Index: \(minIndex)")
+//        print("Min Element: \(minElement)")
+//        print("Min Dest. Element: \(self.destinations![minIndex])")
         
         if self.insideUniversityArea {
             

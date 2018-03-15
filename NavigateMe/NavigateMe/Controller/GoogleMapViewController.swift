@@ -674,7 +674,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         
         super.viewDidLoad()
 
-        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 18) // 20
+        let cameraPostion = GMSCameraPosition.camera(withLatitude: self.universityCampusArea.latitude, longitude: universityCampusArea.longitude, zoom: 20) // 18
         
         let mapView = GMSMapView.map(withFrame: .zero, camera: cameraPostion)
         mapView.delegate = self
@@ -731,25 +731,25 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.universityBlockVertexs.merge(self.universityBlock3Vertexs, uniquingKeysWith: { _, new in new })
         self.universityBlockVertexs.merge(self.universityBlock4Vertexs, uniquingKeysWith: { _, new in new })
         
-        let block1Polygon = GMSPolygon(path: block1Path)
-        block1Polygon.strokeWidth = 7
-        block1Polygon.strokeColor = UIColor.blue
-        block1Polygon.map = mapView
-        
-        let block2Polygon = GMSPolygon(path: block2Path)
-        block2Polygon.strokeWidth = 7
-        block2Polygon.strokeColor = UIColor.purple
-        block2Polygon.map = mapView
-        
-        let block3Polygon = GMSPolygon(path: block3Path)
-        block3Polygon.strokeWidth = 7
-        block3Polygon.strokeColor = UIColor.orange
-        block3Polygon.map = mapView
-        
-        let block4Polygon = GMSPolygon(path: block4Path)
-        block4Polygon.strokeWidth = 7
-        block4Polygon.strokeColor = UIColor.magenta
-        block4Polygon.map = mapView
+//        let block1Polygon = GMSPolygon(path: block1Path)
+//        block1Polygon.strokeWidth = 7
+//        block1Polygon.strokeColor = UIColor.blue
+//        block1Polygon.map = mapView
+//
+//        let block2Polygon = GMSPolygon(path: block2Path)
+//        block2Polygon.strokeWidth = 7
+//        block2Polygon.strokeColor = UIColor.purple
+//        block2Polygon.map = mapView
+//
+//        let block3Polygon = GMSPolygon(path: block3Path)
+//        block3Polygon.strokeWidth = 7
+//        block3Polygon.strokeColor = UIColor.orange
+//        block3Polygon.map = mapView
+//
+//        let block4Polygon = GMSPolygon(path: block4Path)
+//        block4Polygon.strokeWidth = 7
+//        block4Polygon.strokeColor = UIColor.magenta
+//        block4Polygon.map = mapView
         
 //        self.universityBlockVertexs.keys.forEach { vertex in
 //            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
@@ -854,47 +854,47 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.navigation.getDirectionFromDistanceMatrix(origins: [origin], destinations: destinations, insideUniversityArea: insideUniversityArea)
     }
 
-//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//
-//        print("\nTap At: \(coordinate)")
-//
-//        let tapMarker = GMSMarker(position: coordinate)
-//        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
-//        tapMarker.map = mapView
-//
-//        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
-//        self.routePolylines.removeAll()
-//
-//        var insideUniversityArea = false
-//        var destinations = self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
-//
-//        if self.universityBlock1!.contains(coordinate) {
-//
-//            print("Within university block 1: true\n")
-//            insideUniversityArea = true
-//            destinations = self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-//
-//        } else if self.universityBlock2!.contains(coordinate) {
-//
-//            print("Within university block 2: true\n")
-//            insideUniversityArea = true
-//            destinations = self.universityBlock2Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-//
-//        } else if self.universityBlock3!.contains(coordinate) {
-//
-//            print("Within university block 3: true\n")
-//            insideUniversityArea = true
-//            destinations = self.universityBlock3Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-//
-//        } else if self.universityBlock4!.contains(coordinate) {
-//
-//            print("Within university block 4: true\n")
-//            insideUniversityArea = true
-//            destinations = self.universityBlock4Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
-//        }
-//
-//        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
-//    }
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+
+        print("\nTap At: \(coordinate)")
+
+        let tapMarker = GMSMarker(position: coordinate)
+        tapMarker.title = "\(coordinate.latitude), \(coordinate.longitude)"
+        tapMarker.map = mapView
+
+        self.routePolylines.forEach { routePolyline in routePolyline.map = nil }
+        self.routePolylines.removeAll()
+
+        var insideUniversityArea = false
+        var destinations = self.stepsInsideUniversity.keys.sorted(by: { destCoord1, destCoord2 in destCoord1.hashValue < destCoord2.hashValue })
+
+        if self.universityBlock1!.contains(coordinate) {
+
+            print("Within university block 1: true\n")
+            insideUniversityArea = true
+            destinations = self.universityBlock1Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+
+        } else if self.universityBlock2!.contains(coordinate) {
+
+            print("Within university block 2: true\n")
+            insideUniversityArea = true
+            destinations = self.universityBlock2Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+
+        } else if self.universityBlock3!.contains(coordinate) {
+
+            print("Within university block 3: true\n")
+            insideUniversityArea = true
+            destinations = self.universityBlock3Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+
+        } else if self.universityBlock4!.contains(coordinate) {
+
+            print("Within university block 4: true\n")
+            insideUniversityArea = true
+            destinations = self.universityBlock4Vertexs.values.sorted(by: { $0.hashValue < $1.hashValue })
+        }
+
+        self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
+    }
     
     func showDirectionInsideUniversity(_ nearestCoordinate: CLLocationCoordinate2D) {
         
