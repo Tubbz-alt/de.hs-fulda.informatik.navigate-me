@@ -177,9 +177,9 @@ class CAEngine: RESTServiceDelegate {
         
         if s2TGebPlans.count == 1 {            
             print("""
-            No Lecture Plan is found from System2Teach.
-            Reason: \(s2TGebPlans[0].LvaName)
-            """)
+                No Lecture Plan is found from System2Teach.
+                Reason: \(s2TGebPlans[0].LvaName)
+                """)
             self.startProcess()
             return
         }
