@@ -67,16 +67,12 @@ class CAEngine: RESTServiceDelegate {
     // load data into decision tree
     private func startEngine() {
         
-//        print("Engine starting ...")
-        
         // call RESTful API to fetch geb plan from S2T
         s2TGebPlan.get(of: self.gebs!, on: self.search!)
     }
     
     // refresh decision tree
     private func stopEngine() {
-        
-//        print("Engine stopping ...")
         
         // reset raum schedules
         for gebIndex in department.gebs.indices {
@@ -95,8 +91,6 @@ class CAEngine: RESTServiceDelegate {
     // reload data into decision tree
     private func restartEngine() {
         
-//        print("Engine restarting ...")
-        
         stopEngine()
         startEngine()
     }
@@ -104,23 +98,13 @@ class CAEngine: RESTServiceDelegate {
     // make decision from decision tree
     private func startProcess() {
         
-//        print("\nProcess starting ...\n")
-        
         var freeSchedules = [Schedule](), beforeBeginns = [Schedule](), minBeforeBeginn: Schedule? = nil
         
         for gebIndex in department.gebs.indices {
             
-//            print("Geb: " + department.gebs[gebIndex].name)
-            
             for floorIndex in department.gebs[gebIndex].floors.indices {
                 
-//                print("\nFloor: \(department.gebs[gebIndex].floors[floorIndex].number)")
-                
                 for raumIndex in department.gebs[gebIndex].floors[floorIndex].raums.indices {
-                    
-//                    print("Raum: \(department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].number)")
-//                    print("Raum Schedules: \(department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].schedules)")
-//                    print("Raum Status: \(department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].status)")
                     
                     // if there is no schedule for this raum then continue to next raum
                     // and also reduce free duration from (uni close time - uni open time) to (uni close time - search time)
@@ -129,7 +113,6 @@ class CAEngine: RESTServiceDelegate {
                         // raum status is free
                         department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].status = .FREE(self.search!.freeDurationTillUniversityClose())
                         
-//                        print()
                         continue
                     }
                     
@@ -140,8 +123,6 @@ class CAEngine: RESTServiceDelegate {
                         
                         return !((schedule.beginn == self.search! || schedule.beginn < self.search!) && self.search! < schedule.ende)
                     }
-                    
-//                    print("Free Schedules: \(freeSchedules)")
                     
                     if freeSchedules.count == scheduleCount - 1 {
                     
@@ -172,20 +153,14 @@ class CAEngine: RESTServiceDelegate {
                             department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].status = .FREE(minBeforeBeginn!.beginn.time().timeIntervalSince1970 - self.search!.time().timeIntervalSince1970)
                         }
                     }
-                    
-//                    print("Raum Status: \(department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].status)\n")
                 }
             }
         }
-        
-//        print("\n Departmant: \(department)\n")
         
         self.previousSearch = self.search!
         self.search = nil
         
         let freeRaumDTOs = generateFreeRaumDTO()
-        
-//        print("\n Free Raum DTO: \(freeRaumDTOs)\n")
         
         self.delegate?.processDidComplete(then: freeRaumDTOs)
     }
@@ -199,12 +174,8 @@ class CAEngine: RESTServiceDelegate {
             self.delegate?.processDidAbort(reason: "University is Closed.")
             return
         }
-
-//        print("\nData Count: \(s2TGebPlans.count)\n")
         
-        if s2TGebPlans.count == 1 { //&& s2TGebPlans[0].Raum.contains("Hochschule Fulda") &&
-//            s2TGebPlans[0].Dozent.isEmpty && (s2TGebPlans[0].Gruppe.isEmpty || s2TGebPlans[0].Gruppe.contains("FB AI")) {
-            
+        if s2TGebPlans.count == 1 {            
             print("""
                 No Lecture Plan is found from System2Teach.
                 Reason: \(s2TGebPlans[0].LvaName)
@@ -213,9 +184,6 @@ class CAEngine: RESTServiceDelegate {
             return
         }
 
-//        print("\nInitial values of Decision Tree:\n")
-//        print("\(self.department)")
-        
         var gebRaums = [Substring](), mappedIndices = [Int](), beginn: Date? = nil, ende: Date? = nil, raumFromS2T: String? = nil, isScheduleAppended = false
     
         for gebPlan in s2TGebPlans {
@@ -227,12 +195,6 @@ class CAEngine: RESTServiceDelegate {
             beginn = Date.millisecondToDate(Double(gebPlan.Beginn))
             ende = Date.millisecondToDate(Double(gebPlan.Ende))
 
-//            print("Raum: " + gebPlan.Raum)
-//            print("Beginn in millisecond: \(gebPlan.Beginn)")
-//            print("Beginn: \(beginn)")
-//            print("Ende in millisecond: \(gebPlan.Ende)")
-//            print("Ende: \(ende)\n")
-            
             guard beginn!.onlyDateEqual(to: self.search!),
                 ende!.onlyDateEqual(to: self.search!) else {
                     
@@ -282,25 +244,6 @@ class CAEngine: RESTServiceDelegate {
             }
         }
         
-//        let recordCount = department.gebs[0].floors.reduce(0, { (result, floor) in
-//
-//            result + floor.raums.reduce(0, { (result, raum) in
-//
-//                result + raum.schedules.count
-//            })
-//        })
-        
-//        print("\nRecord Count: \(recordCount)\n")
-        
-        // if S2T data count is not equal to transformed decision tree record count
-        // then abort the process and check for data accuracy
-//        guard data.count == recordCount else {
-//
-//            print("Data accuracy is failed with System2Teach, please check System2Teach data transformation block.")
-//            self.delegate?.processDidAbort(reason: "Data accuracy is failed with System2Teach.")
-//            return
-//        }
-        
         startProcess()
     }
     
@@ -310,8 +253,6 @@ class CAEngine: RESTServiceDelegate {
     }
     
     func searchFreeRaums() {
-        
-//        print("In App Engine")
         
         guard !self.search!.isPast() else {
             

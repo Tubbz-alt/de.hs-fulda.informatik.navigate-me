@@ -52,8 +52,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func searchFreeRaums(_ sender: UIButton) {
 
-//        print("\nDate Picker Date: " + searchDateTime.date.description + "\n")
-        
         if IPEngine.floorPlans.isEmpty {
 
             self.startImageProcessor()
@@ -62,15 +60,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         app.gebs = ["46(E)."]
         app.search = searchDateTime.date
         app.searchFreeRaums()
-        
-//        let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
-//        googleMapViewController.geb = "46(E)"
-//        googleMapViewController.floor = 0
-//        googleMapViewController.raum = 35
-//        googleMapViewController.duration = "03:35"
-//        googleMapViewController.shortestPathFromGeb46E = self.shortestPathFromGeb46E
-//
-//        self.navigationController!.pushViewController(googleMapViewController, animated: true)
     }
     
     @IBAction func navigateMeInThisRaum(_ sender: UIButton) {
@@ -160,8 +149,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let navigateAction = UIAlertAction(title: "Navigate Me", style: .default) { alertAction in
             
-//            print("Hello, please navigate me to " + title + " of Gebäude " + freeRaum.geb + ": Floor \(freeRaum.floor)\n")
-            
             let googleMapViewController = self.storyboard!.instantiateViewController(withIdentifier: "GoogleMapView") as! GoogleMapViewController
             googleMapViewController.geb = freeRaum.geb
             googleMapViewController.floor = freeRaum.floor
@@ -246,14 +233,7 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
             // reset free raums dictionary
             self.freeRaums = [String : [Int : [(raum: Int, duration: String)]]]()
             
-//            print("Free Raums Count: \(dto.count)\n")
-            
             freeRaumDTO.forEach { freeRaum in
-             
-//                print("Geb: " + freeRaum.geb)
-//                print("Floor: \(freeRaum.floor)")
-//                print("Raum: \(freeRaum.raum)")
-//                print("Duration: \(freeRaum.duration)\n")
 
                 if !self.freeRaums.keys.contains(freeRaum.geb) {
                     
@@ -268,9 +248,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.freeRaums[freeRaum.geb]![freeRaum.floor]! += [(freeRaum.raum, freeRaum.duration)]
             }
             
-//            print("Free Raums Dictionary:")
-//            print(self.freeRaums.description)
-            
             self.gebCollectionView.isHidden = false
             self.gebCollectionView.reloadData()
         }
@@ -279,9 +256,6 @@ class FreeRaumViewController: UIViewController, UICollectionViewDelegate, UIColl
     func processDidAbort(reason message: String) {
         
         DispatchQueue.main.async {
-            
-//            print("Process is aborted.")
-//            print("Reason: " + message)
             
             self.gebCollectionView.isHidden = true
             

@@ -730,7 +730,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         self.universityBlockVertexs.merge(self.universityBlock2Vertexs, uniquingKeysWith: { _, new in new })
         self.universityBlockVertexs.merge(self.universityBlock3Vertexs, uniquingKeysWith: { _, new in new })
         self.universityBlockVertexs.merge(self.universityBlock4Vertexs, uniquingKeysWith: { _, new in new })
-        
+
 //        let block1Polygon = GMSPolygon(path: block1Path)
 //        block1Polygon.strokeWidth = 7
 //        block1Polygon.strokeColor = UIColor.blue
@@ -754,7 +754,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 //        self.universityBlockVertexs.keys.forEach { vertex in
 //            self.drawShortestPathOnMap(destination: vertex, mapView: mapView)
 //        }
-        
+
         self.view = mapView
         
         let floorSwitcher = UISegmentedControl(items: self.floorStringValues)
@@ -895,7 +895,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
 
         self.navigation.getDirectionFromDistanceMatrix(origins: [coordinate], destinations: destinations, insideUniversityArea: insideUniversityArea)
     }
-    
+
     func showDirectionInsideUniversity(_ nearestCoordinate: CLLocationCoordinate2D) {
         
         // draw line from current location to start step
