@@ -20,3 +20,11 @@ Using this application, students can easily find which rooms are lecture free in
 5. The above command will install all dependencies mentioned in the Podfile.
 
 6. After successful dependecies installation, please run NavigateMe.xcworkspace instead of NavigateMe.xcodeproj
+
+7. Finally, please check followings:
+
+        please click "Project Navigator" tab in left pannel, then
+                NavigateMe(Top in 1st Tree) Targets -> NavigateMe -> Build Settings -> Enable Bitcode -> Yes
+                Pods(Top in 2nd Tree) -> Targets -> TesseractOCRiOS -> Build Settings -> Enable Bitcode -> Yes
+
+   If "Enable Bitcode" is set to "No", then please change the value to "Yes".     

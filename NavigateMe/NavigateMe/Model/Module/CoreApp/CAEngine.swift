@@ -223,7 +223,8 @@ class CAEngine: RESTServiceDelegate {
                         
                         for raumIndex in department.gebs[gebIndex].floors[floorIndex].raums.indices {
                             
-                            if department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].number == Int(gebRaums[1]) {
+                            if gebRaums.count > 1,
+                                department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].number == Int(gebRaums[1]) {
                                 
                                 department.gebs[gebIndex].floors[floorIndex].raums[raumIndex].schedules.insert(Schedule(beginn: beginn!, ende: ende!))
                                 mapWithS2T[raumFromS2T!] = [gebIndex, floorIndex, raumIndex]
